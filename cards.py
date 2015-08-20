@@ -96,6 +96,7 @@ class Cards():
     def get_points(self):
         return sum([card.point for card in self.cards])
 
+
 class Deck(Cards):
 
     def __init__(self):

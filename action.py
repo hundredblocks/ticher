@@ -35,11 +35,18 @@ class Action():
     def passes(player):
         return Action(player)
 
+    @staticmethod
+    def play(player, combination: Combination, wish=None):
+        return Action(player, combination, wish=wish)
+
     def __repr__(self):
         if self.has_passed():
             return '%s passed' % self.player.name
         else:
-            return '%s played %s' % (self.player.name, self.combination)
+            if self.wish is not None:
+                return '%s played %s - wished for %s' % (self.player.name, self.combination, self.wish)
+            else:
+                return '%s played %s' % (self.player.name, self.combination)
 
     def assert_valid(self):
         if self.action_type == ActionsType.play:

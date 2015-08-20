@@ -1,4 +1,6 @@
 from action import Action
+from card import Mahjong
+from combination import Combination
 from hand import Hand
 from players.player import Player
 
@@ -16,12 +18,15 @@ class DumbAI(Player):
                        'SQUAREBOMB',
                        'STRAIGHTBOMB']
 
-    def __init__(self, hand: Hand, name):
-        super(DumbAI, self).__init__(hand, name)
+    def __init__(self, name, hand):
+        super(DumbAI, self).__init__(name=name, hand=hand)
 
     # takes in a game state and returns what to play
-    def play(self, trick, wish=None):
+    def get_combination_to_play(self, trick, wish=None):
         combination_to_play = None
+
+        if Mahjong() in self.hand.cards:
+            return Combination(cards_list=[Mahjong()])
 
         # if there is a trick being played
         last_play = trick.get_last_play()
@@ -40,15 +45,27 @@ class DumbAI(Player):
                 if combination_to_play:
                     break
 
-        if combination_to_play is not None:
-            self.hand = self.hand - combination_to_play
-            return Action(combination=combination_to_play, player=self)
-        else:
-            # Empty action means passing
-            return Action.passes(player=self)
+        return combination_to_play
 
-    def pass_cards(self):
-        lowest_card = self.hand.find_lowest_combination(0, 'SINGLE')
-        second_lowest_card = (self.hand - lowest_card).find_lowest_combination(0, 'SINGLE')
-        third_lowest_card = (self.hand - lowest_card - second_lowest_card).find_lowest_combination(0, 'SINGLE')
-        return [lowest_card, third_lowest_card, second_lowest_card]
+    def get_cards_to_give(self):
+
+        lowest_card = self.hand.find_lowest_combination(-1, 'SINGLE')
+        second_lowest_card = (self.hand - lowest_card).find_lowest_combination(-1, 'SINGLE')
+        third_lowest_card = (self.hand - lowest_card - second_lowest_card).find_lowest_combination(-1, 'SINGLE')
+
+        self.wish = lowest_card.cards[0].power
+
+        return [lowest_card.cards[0], third_lowest_card.cards[0], second_lowest_card.cards[0]]
+
+    def get_player_to_pass_dragon_to(self):
+        # TODO - check guys is not out
+        return self.other_players[-1].name
+
+    # def bomb(self, trick):
+    #     if self.name == 'Player 1':
+    #         combination = Combination(cards_string='J_Pa, J_Sw, J_Ja, J_St')
+    #         # if combination > trick.get_last_play().combination:
+    #         return Action(self, combination=combination)
+    #     if self.name == 'Player 2':
+    #         combination = Combination(cards_string='A_Pa, A_Sw, A_Ja, A_St')
+    #         return Action(self, combination= combination)

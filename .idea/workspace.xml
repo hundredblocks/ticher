@@ -46,7 +46,7 @@
     <SUITE FILE_PATH="coverage/Ticher$Unittest_TestCombination_test_wrong_pairs.coverage" NAME="Unittest TestCombination.test_wrong_pairs Coverage Results" MODIFIED="1439331924770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/Ticher$Unittest_TestHand_test_3_straights.coverage" NAME="Unittest TestHand.test_3_straights Coverage Results" MODIFIED="1439502384942" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/Ticher$Unittests_in_test_combination.coverage" NAME="Unittests in test_combination Coverage Results" MODIFIED="1439928940191" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
-    <SUITE FILE_PATH="coverage/Ticher$test.coverage" NAME="test Coverage Results" MODIFIED="1440038684990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Ticher$test.coverage" NAME="test Coverage Results" MODIFIED="1440107245639" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -59,136 +59,111 @@
     <favorites_list name="Ticher" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.78886753">
-      <split-first>
-        <leaf>
-          <file leaf-file-name="card.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/card.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="146" column="23" selection-start="3797" selection-end="3797" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="2505">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="test.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/test.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="56" column="0" selection-start="1718" selection-end="1718" vertical-scroll-proportion="0.0" vertical-offset="430" max-vertical-offset="915">
-                  <folding>
-                    <marker date="1440037082000" expanded="false" signature="0:89" placeholder="import ..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="combination.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/combination.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="19" column="6" selection-start="338" selection-end="338" vertical-scroll-proportion="0.0" vertical-offset="1530" max-vertical-offset="2895">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="player.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/players/player.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="69" column="58" selection-start="1976" selection-end="1976" vertical-scroll-proportion="-4.92" vertical-offset="912" max-vertical-offset="1380">
-                  <folding>
-                    <element signature="e#0#23#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="other_player.py" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/players/other_player.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="12" column="17" selection-start="215" selection-end="215" vertical-scroll-proportion="0.28257456" vertical-offset="0" max-vertical-offset="1080">
-                  <folding>
-                    <element signature="e#0#21#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="dumb_ai.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/players/dumb_ai.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="23" column="0" selection-start="615" selection-end="615" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="885">
-                  <folding>
-                    <element signature="e#0#25#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="trick.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/trick.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="19" column="8" selection-start="361" selection-end="361" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="cards.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/cards.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="95" column="18" selection-start="3123" selection-end="3133" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1650">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="hand.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/hand.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="62" column="30" selection-start="2259" selection-end="2259" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4335">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="test_hand.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/test/test_hand.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3240">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="game_manager.py" pinned="false" current="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/game_manager.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="47" column="0" selection-start="1317" selection-end="1317" vertical-scroll-proportion="-0.0779896" vertical-offset="750" max-vertical-offset="3315">
-                  <folding>
-                    <element signature="e#0#16#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="action.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/action.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="6" column="14" selection-start="109" selection-end="109" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="960">
-                  <folding>
-                    <element signature="e#0#24#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf>
+      <file leaf-file-name="cards.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cards.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="98" column="0" selection-start="3198" selection-end="3198" vertical-scroll-proportion="0.0" vertical-offset="1183" max-vertical-offset="1665">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="player.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/players/player.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="47" column="0" selection-start="1616" selection-end="1616" vertical-scroll-proportion="0.0" vertical-offset="1857" max-vertical-offset="2070">
+              <folding>
+                <element signature="e#0#30#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="action.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/action.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="46" column="49" selection-start="1166" selection-end="1166" vertical-scroll-proportion="0.0" vertical-offset="549" max-vertical-offset="1065">
+              <folding>
+                <element signature="e#0#24#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="hand.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hand.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="62" column="30" selection-start="2259" selection-end="2259" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4335">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base_player.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/players/base_player.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="22" column="21" selection-start="467" selection-end="467" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="435">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dumb_ai.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/players/dumb_ai.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="54" column="0" selection-start="1833" selection-end="1833" vertical-scroll-proportion="-0.12" vertical-offset="807" max-vertical-offset="1140">
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="trick.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trick.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="47" column="29" selection-start="1200" selection-end="1200" vertical-scroll-proportion="-6.72" vertical-offset="537" max-vertical-offset="885">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="combination.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/combination.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="6" selection-start="338" selection-end="338" vertical-scroll-proportion="0.0" vertical-offset="2047" max-vertical-offset="2895">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="game_manager.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/game_manager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="213" column="80" selection-start="7226" selection-end="7226" vertical-scroll-proportion="0.5103093" vertical-offset="2898" max-vertical-offset="3795">
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="other_player.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/players/other_player.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="47" column="0" selection-start="1359" selection-end="1509" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="885">
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+                <marker date="1440100891000" expanded="true" signature="154:1684" placeholder="..." />
+                <marker date="1440100891000" expanded="true" signature="1538:1597" placeholder="..." />
+                <marker date="1440100891000" expanded="true" signature="1622:1684" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -198,14 +173,17 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/trick.py" />
-        <option value="$PROJECT_DIR$/card.py" />
-        <option value="$PROJECT_DIR$/cards.py" />
-        <option value="$PROJECT_DIR$/game_manager.py" />
-        <option value="$PROJECT_DIR$/action.py" />
         <option value="$PROJECT_DIR$/player.py" />
+        <option value="$PROJECT_DIR$/cards.py" />
         <option value="$PROJECT_DIR$/players/other_player.py" />
+        <option value="$PROJECT_DIR$/trick.py" />
+        <option value="$PROJECT_DIR$/players/base_player.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/card.py" />
         <option value="$PROJECT_DIR$/players/player.py" />
+        <option value="$PROJECT_DIR$/action.py" />
+        <option value="$PROJECT_DIR$/players/dumb_ai.py" />
+        <option value="$PROJECT_DIR$/game_manager.py" />
       </list>
     </option>
   </component>
@@ -213,10 +191,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="4" />
-    <option name="y" value="22" />
-    <option name="width" value="1276" />
-    <option name="height" value="778" />
+    <option name="x" value="-343" />
+    <option name="y" value="-1178" />
+    <option name="width" value="1920" />
+    <option name="height" value="1178" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -259,20 +237,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ticher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ticher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ticher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -653,17 +617,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="22" width="1276" height="778" extended-state="6" />
+    <frame x="-343" y="-1178" width="1920" height="1178" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299539" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3265306" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28717202" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15559158" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.63265306" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1256656" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4392265" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -693,6 +657,9 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -700,7 +667,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="94" />
+      <option name="time" value="101" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -714,9 +681,7 @@
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1035">
-          <folding>
-            <marker date="1440037082000" expanded="false" signature="0:89" placeholder="import ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -724,7 +689,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1650">
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#0#30#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -819,9 +784,7 @@
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding>
-            <marker date="1440037082000" expanded="false" signature="0:89" placeholder="import ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -870,26 +833,10 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/test_hand.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="36" column="0" selection-start="1164" selection-end="1164" vertical-scroll-proportion="0.814433" vertical-offset="145" max-vertical-offset="630">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="0" selection-start="1718" selection-end="1718" vertical-scroll-proportion="0.0" vertical-offset="430" max-vertical-offset="915">
-          <folding>
-            <marker date="1440037082000" expanded="false" signature="0:89" placeholder="import ..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -900,30 +847,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test/test_hand.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/combination.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="6" selection-start="338" selection-end="338" vertical-scroll-proportion="0.0" vertical-offset="83" max-vertical-offset="2895">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/card.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="146" column="23" selection-start="3797" selection-end="3797" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="2505">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trick.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="8" selection-start="361" selection-end="361" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
+        <state line="19" column="6" selection-start="338" selection-end="338" vertical-scroll-proportion="0.0" vertical-offset="2047" max-vertical-offset="2895">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cards.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="18" selection-start="3123" selection-end="3133" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1650">
+        <state line="98" column="0" selection-start="3198" selection-end="3198" vertical-scroll-proportion="0.0" vertical-offset="1183" max-vertical-offset="1665">
           <folding />
         </state>
       </provider>
@@ -935,47 +875,78 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/players/other_player.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="0" selection-start="1359" selection-end="1509" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="885">
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+            <marker date="1440100891000" expanded="true" signature="154:1684" placeholder="..." />
+            <marker date="1440100891000" expanded="true" signature="1538:1597" placeholder="..." />
+            <marker date="1440100891000" expanded="true" signature="1622:1684" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trick.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="29" selection-start="1200" selection-end="1200" vertical-scroll-proportion="-6.72" vertical-offset="537" max-vertical-offset="885">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/players/base_player.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="21" selection-start="467" selection-end="467" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="435">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/card.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="134" column="44" selection-start="3494" selection-end="3494" vertical-scroll-proportion="0.0" vertical-offset="1937" max-vertical-offset="2535">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="0" selection-start="1740" selection-end="1740" vertical-scroll-proportion="0.0" vertical-offset="658" max-vertical-offset="945">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/players/player.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="0" selection-start="1616" selection-end="1616" vertical-scroll-proportion="0.0" vertical-offset="1857" max-vertical-offset="2070">
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/action.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="14" selection-start="109" selection-end="109" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="960">
+        <state line="46" column="49" selection-start="1166" selection-end="1166" vertical-scroll-proportion="0.0" vertical-offset="549" max-vertical-offset="1065">
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game_manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="0" selection-start="1317" selection-end="1317" vertical-scroll-proportion="-0.0779896" vertical-offset="750" max-vertical-offset="3315">
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/players/dumb_ai.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="615" selection-end="615" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="885">
+        <state line="54" column="0" selection-start="1833" selection-end="1833" vertical-scroll-proportion="-0.12" vertical-offset="807" max-vertical-offset="1140">
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/players/player.py">
+    <entry file="file://$PROJECT_DIR$/game_manager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="58" selection-start="1976" selection-end="1976" vertical-scroll-proportion="-4.92" vertical-offset="912" max-vertical-offset="1380">
+        <state line="213" column="80" selection-start="7226" selection-end="7226" vertical-scroll-proportion="0.5103093" vertical-offset="2898" max-vertical-offset="3795">
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/players/other_player.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="17" selection-start="215" selection-end="215" vertical-scroll-proportion="0.28257456" vertical-offset="0" max-vertical-offset="1080">
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>

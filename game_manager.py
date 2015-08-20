@@ -1,6 +1,6 @@
 import itertools
 
-from card import Mahjong
+from card import Mahjong, Dragon, Dog
 
 from cards import Deck
 from hand import Hand
@@ -29,18 +29,9 @@ class GameManager():
             for idx, player in enumerate(players):
                 player.hand = divided_cards[idx]
 
-        for player in players:
-            if Mahjong() in player.hand.cards:
-                self.lead_player = player
-                break
-
-        #TODO How to decide lead player
-        else:
-            self.lead_player = players[0]
-
         self.players = players
         for player in self.players:
-            player.set_players_name([p.name for p in self.players])
+            player.create_players([p.name for p in self.players])
 
         print(*['%s - %s' % (player.name, player.hand) for player in self.players], sep='\n')
 
@@ -57,6 +48,7 @@ class GameManager():
         if self.game_over:
             return True
 
+        # CHECK if both people from same team are out
         self.game_over = sum([1 if not x.is_out() else 0 for x in self.players]) <= 1
         return self.game_over
 
@@ -64,28 +56,32 @@ class GameManager():
 
         # Until 3 players are out
         # Game
-        # TODO - give cards at the beginning
+        self.exchange_cards()
+
+        for player in self.players:
+            if Mahjong() in player.hand.cards:
+                self.lead_player = player
+                break
+
+        #TODO How to decide lead player
+        else:
+            self.lead_player = self.players[0]
 
         while not self.is_game_over():
             print('',
                   '### new trick with players %s' %
-                  (', '.join([player.name for player in self.get_player_still_game()])),
+                  (', '.join(['%s (%spts)' % (player.name, player.points) for player in self.get_player_still_game()])),
                   '### leading player is %s' % self.lead_player,
                   '### trick - %s' % self.present_trick,
                   '',
                   sep='\n')
-
             # Take action from the lead player
             self.get_player_action(self.lead_player)
 
             # Check if game is over
             if self.is_game_over():
                 continue
-            # TODO change logic for bomb
             self.check_for_bomb()
-            # Check if game is over
-            if self.is_game_over():
-                continue
 
             # Initialize the rolling cycle of player
             player_iterator = self.next_active_player()
@@ -101,17 +97,12 @@ class GameManager():
                 player_action = self.get_player_action(active_player)
 
                 if not player_action.has_passed():
-                    self.lead_player = active_player
 
                     # Check if game is over
                     if self.is_game_over():
                         break
 
-                    # TODO change logic for bomb
                     self.check_for_bomb()
-                    # Check if game is over
-                    if self.is_game_over():
-                        continue
 
                     if self.lead_player.is_out():
                         self.lead_player = next(player_iterator)
@@ -119,11 +110,28 @@ class GameManager():
                 self.check_for_bomb()
                 active_player = next(player_iterator)
 
-            self.present_trick.reset()
+            self.end_of_trick()
 
     def publish_action_to_players(self, action, starting=False):
         for player in self.players:
             player.publish_action(action, starting)
+
+    def end_of_trick(self):
+
+        last_play = self.present_trick.get_last_play()
+        trick_owner = self.present_trick.get_last_player()
+
+        if Dragon() in last_play.combination.cards:
+            trick_owner_name = trick_owner.get_player_to_pass_dragon_to()
+            print('Trick is given to %s' % trick_owner_name)
+        else:
+            trick_owner_name = trick_owner.name
+
+        # notify all players
+        for player in self.players:
+                player.end_of_trick(trick_owner_name=trick_owner_name, trick=self.present_trick)
+
+        self.present_trick.reset()
 
     # Returns a cyclic iterators on players still n starting after the start player
     def next_active_player(self):
@@ -152,21 +160,29 @@ class GameManager():
         else:
             player_action = player.play(self.present_trick, self.wish_for_power)
 
-
         print(player_action)
         # Ensure action is valid
         try:
             self.assert_valid_action(player, player_action)
+
             if player_action.wish is not None:
                 self.wish_for_power = player_action.wish
 
             # TODO - TEMP
             if player.is_out():
                 print('=====> %s is out' % player)
-            # TODO - update lead_player here
-            self.present_trick.update(valid_action=player_action, out=player.is_out())
+
+            self.present_trick.update(action=player_action, out=player.is_out())
             self.publish_action_to_players(action=player_action,
                                            starting=self.present_trick.is_first_run())
+
+            if not player_action.has_passed():
+                self.lead_player = player
+
+                if Dog() in player_action.combination.cards:
+                    self.lead_player = self.get_player(player.get_partner().name)
+                    self.end_of_trick()
+
             return player_action
 
         except Exception as e:
@@ -179,9 +195,7 @@ class GameManager():
     def check_for_bomb(self):
         for player in self.get_player_still_game():
             # Assuming that people would not terminate on a Bomb
-            bomb = self.get_player_action(player, bomb=True)
-            if bomb:
-                return
+            self.get_player_action(player, bomb=True)
 
     def assert_valid_action(self, player, action):
         if self.present_trick.is_first_run() and action.has_passed() and not player.is_out():
@@ -193,23 +207,41 @@ class GameManager():
             last_play = self.present_trick.get_last_play()
 
             if last_play:
-                if last_play.combination.type != action.combination.type:
-                    raise GameManagerException('Combination type should match')
-
-                if last_play.combination.size != action.combination.size:
-                    raise GameManagerException('Combination size should match')
-
-                if last_play.combination.level >= action.combination.level:
+                if last_play.combination >= action.combination:
                     raise GameManagerException('Combination should be greater than last played')
 
         if self.wish_for_power is not None:
-            assert self.wish_for_power not in [card.power for card in player.hand.cards]
+            if self.wish_for_power in [card.power for card in action.combination.cards]:
+                self.wish_for_power = None
+
             # TODO assert for combination not possible
+            elif self.wish_for_power in [card.power for card in player.hand.cards]:
+                raise GameManagerException('Wish should be fulfilled')
 
     def get_player_still_game(self):
         return [player for player in self.players if not player.is_out()]
 
+    def exchange_cards(self):
+        # Get all cards
+        exchanged_cards = {}
+        for player in self.players:
+            exchanged_cards[player.name] = player.give_cards()
+
+            print('%s gives %s' % (player.name, exchanged_cards[player.name]))
+
+        for from_player, gifts in exchanged_cards.items():
+            for player_to_give, card in gifts.items():
+                self.get_player(player_to_give).received_card(from_player, card)
+
+    def get_player(self, player_name):
+        for player in self.players:
+            if player.name == player_name:
+                return player
+
 
 class GameManagerException(Exception):
     pass
+
+
+
 

@@ -1,4 +1,4 @@
-from card import Card, Phoenix
+from card import Card, Phoenix, Dragon
 from game_manager import GameManager
 from hand import Hand
 
@@ -43,6 +43,8 @@ cards_list = [
 
 ]
 test = [1, 2, 3, 4]
+
+d = Dragon()
 
 hand1 = Hand(cards_string='K_Pa, K_Sw')
 hand2 = Hand(cards_string='Phoenix, A_Pa, Q_Pa')

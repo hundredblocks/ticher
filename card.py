@@ -25,7 +25,8 @@ CARD_VALUES = {'2': 2,
                'Dragon': 15,
                'Phoenix': 0.5,
                'Mahjong': 1,
-               'Dog': 0}
+               'Dog': 0,
+               'unknown': None}
 
 
 # Format '4_Pa'
@@ -55,6 +56,10 @@ class Card():
         self.point = 0
         if self.name in ['5','10', 'K']:
             self.point = (self.power // 5)*5
+        if self.name == 'Dragon':
+            self.point = 25
+        if self.name == 'Phoenix':
+            self.point = - 25
         self._assert_valid()
 
     def _assert_valid(self):
@@ -128,31 +133,32 @@ class Phoenix(Card):
 
     def __init__(self):
         # TODO - Update when Card is Updated
-        super(Phoenix, self).__init__(name='Phoenix', suit='Special')
-
+        super().__init__(name='Phoenix', suit='Special')
 
 class Dog(Card):
 
     def __init__(self):
         # TODO - Update when Card is Updated
-        super(Dog, self).__init__(name='Dog', suit='Special')
+        super().__init__(name='Dog', suit='Special')
 
 
 class Dragon(Card):
 
     def __init__(self):
         # TODO - Update when Card is Updated
-        super(Dragon, self).__init__(name='Dragon', suit='Special')
-
+        super().__init__(name='Dragon', suit='Special')
 
 class Mahjong(Card):
 
     def __init__(self):
         # TODO - Update when Card is Updated
-        super(Mahjong, self).__init__(name='Mahjong', suit='Special')
+        super().__init__(name='Mahjong', suit='Special')
 
 
 class Unknown(Card):
 
     def __init__(self):
-        super(Unknown, self).__init__(name='unknown', suit='Unknown')
+        super(Unknown, self).__init__(name='unknown', suit='Special')
+
+    def _assert_valid(self):
+        return True

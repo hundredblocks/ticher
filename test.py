@@ -1,12 +1,6 @@
-import inspect
-import itertools
-import random
-from card import Card, Phoenix, Dog, Mahjong, Dragon
-from cards import Cards, Deck
-from combination import Combination
+from card import Card, Phoenix, Dragon
 from game_manager import GameManager
 from hand import Hand
-from player import Player, DumbAI
 
 __author__ = 'EmmanuelAmeisen'
 
@@ -49,6 +43,8 @@ cards_list = [
 
 ]
 test = [1, 2, 3, 4]
+
+d = Dragon()
 
 hand1 = Hand(cards_string='K_Pa, K_Sw')
 hand2 = Hand(cards_string='Phoenix, A_Pa, Q_Pa')

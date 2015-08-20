@@ -49,7 +49,17 @@ class GameManager():
             return True
 
         # CHECK if both people from same team are out
-        self.game_over = sum([1 if not x.is_out() else 0 for x in self.players]) <= 1
+        players_in = self.get_player_still_game()
+
+        if len(players_in) <= 1:
+            self.game_over = True
+
+        if len(players_in) == 2:
+            player_in = players_in[0]
+            if player_in.name == self.get_partner(player_in).name:
+                print('########## Game Over - 1 / 2')
+                self.game_over = True
+
         return self.game_over
 
     def run_game(self):
@@ -237,6 +247,10 @@ class GameManager():
         for player in self.players:
             if player.name == player_name:
                 return player
+
+    def get_partner(self, player):
+        player_index = self.players.index(player)
+        return self.players[(player_index + 2) % 4]
 
 
 class GameManagerException(Exception):

@@ -7,10 +7,13 @@ from combination import Combination
 __author__ = 'EmmanuelAmeisen'
 
 
+# TODO array of combination
+# TODO hash of combinations
+# TODO sequence of combinations for the AI
+
 # Card, combination, Hand, trick, game, match
 class Hand(Cards):
     combinations = None
-    bucketized_cards = None
 
     # Should take in string or list of cards
     def __init__(self, cards_list: list=None, cards_dict_list: list=None, cards_string: str=None):
@@ -141,8 +144,43 @@ class Hand(Cards):
             if rest:
                 return rest + Phoenix()
 
+    #TODO pairs being trio ?
+
     @staticmethod
-    def find_all_normal_straights(cards: Cards):
+    def find_all_multiples(cards: Cards, multiple: int):
+        cards = cards - Dog() - Dragon()
+        buckets = Cards.bucketize_hands(cards.cards)
+        multiples = []
+        for level in range(Mahjong().power+1, Dragon().power):
+            cards_this_level = buckets[level]
+            if (Phoenix().power in buckets.keys()) and (multiple != 4):
+                cards_this_level.append(Phoenix())
+            if len(cards_this_level) > 1:
+                for pair in itertools.combinations(cards_this_level, multiple):
+                    multiples.append(Combination(cards_list=list(pair)))
+
+        return multiples
+
+    @staticmethod
+    def find_all_fullhouses(cards: Cards):
+        duos = Hand.find_all_multiples(cards, 2)
+        trios = Hand.find_all_multiples(cards, 3)
+        fullhouses = []
+        for trio in trios:
+            possible_duos = [duo for duo in duos if trio.level != duo.level]
+            if trio.phoenix_flag:
+                possible_duos = [duo for duo in possible_duos if not duo.phoenix_flag]
+            for possible_duo in possible_duos:
+                fullhouse_cards = trio.cards.copy()
+                fullhouse_cards.extend(possible_duo.cards)
+                fullhouses.append(Combination(cards_list=fullhouse_cards))
+
+        return fullhouses
+
+
+    @staticmethod
+    def find_all_straights(cards: Cards):
+        #TODO fix levels
         #TODO, put the level in there to differentiate phoenix at start and end
         #TODO Sort the combinations
         # remove Dog and Dragon from any straights
@@ -199,7 +237,7 @@ class Hand(Cards):
                         new_straights.append(new_combo)
                         # new_straights.append(straight - card + Phoenix())
         straights.extend(new_straights)
-        # straights.sort()
+        straights.sort()
         return straights
 
     @staticmethod

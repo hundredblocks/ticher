@@ -1,12 +1,6 @@
-import inspect
-import itertools
-import random
-from card import Card, Phoenix, Dog, Mahjong, Dragon
-from cards import Cards, Deck
-from combination import Combination
+from card import Card, Phoenix
 from game_manager import GameManager
 from hand import Hand
-from player import Player, DumbAI
 
 __author__ = 'EmmanuelAmeisen'
 

@@ -93,6 +93,8 @@ class Cards():
 
         return buckets
 
+    def get_points(self):
+        return sum([card.point for card in self.cards])
 
 class Deck(Cards):
 

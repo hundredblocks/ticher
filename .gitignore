@@ -1,0 +1,12 @@
+;;
+
+;;files to ignore
+local_settings.py
+
+;;extensions to ignore
+*.log
+*.pot
+*.pyc
+
+;;directories to ignore
+.idea/

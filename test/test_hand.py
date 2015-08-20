@@ -196,7 +196,23 @@ class TestHand(unittest.TestCase):
         # cards = 'Phoenix,2_Pa, 3_Pa, 4_Sw, 5_St, K_Sw, A_Ja'
         # cards = 'Dragon, Phoenix,2_Pa, 3_Pa, J_Sw, Q_St, K_Sw, A_Ja'
         hand = Hand(cards_string=cards)
-        combination = Hand.find_all_normal_straights(hand)
+        combination = Hand.find_all_straights(hand)
+        print(*combination, sep='\n')
+
+    def test_all_multiples(self):
+        cards = '2_Sw, 2_St, 2_Ja, 3_St, 3_Sw, Phoenix'
+        # cards = '3_Sw'
+        hand = Hand(cards_string=cards)
+        # combination = Hand.find_all_multiples(hand, 2)
+        combination = Hand.find_all_multiples(hand, 3)
+        # combination = Hand.find_all_multiples(hand, 4)
+        print(*combination, sep='\n')
+
+    def test_all_fulls(self):
+        cards = '2_Sw, 2_St, 2_Ja, 3_St, 3_Sw, Phoenix'
+        # cards = '3_Sw'
+        hand = Hand(cards_string=cards)
+        combination = Hand.find_all_fullhouses(hand)
         print(*combination, sep='\n')
 
     @unittest.expectedFailure

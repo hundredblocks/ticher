@@ -37,8 +37,25 @@ class Hand(Cards):
         self.combinations['STRAIGHTBOMB'].extend(Hand.find_all_straights(cards, bomb=True))
         self.combinations['FULLHOUSE'].extend(Hand.find_all_fullhouses(cards))
 
-    # TODO Flag for multiples called favor_no_phoenix, true by default, if false then will just output lowest multiple
     def find_lowest_combination(self, level_to_beat, combination_type, length=None):
+        potential_combinations = self.combinations[combination_type]
+        if len(potential_combinations) == 0:
+            return
+
+        # Length
+        if combination_type in ['STEPS', 'STRAIGHT']:
+            if length is None or length == 0:
+                raise ValueError('Please provide combination lenght for steps and straight')
+
+            potential_combinations = [combination for combination in potential_combinations if combination.size == length]
+        potential_combinations = [combination for combination in potential_combinations if combination.level > level_to_beat]
+
+        if len(potential_combinations) > 0:
+            potential_combinations.sort()
+            return potential_combinations[0]
+
+    # TODO Flag for multiples called favor_no_phoenix, true by default, if false then will just output lowest multiple
+    def find_lowest_combination_to_delete(self, level_to_beat, combination_type, length=None):
         # call find_pairs
 
         multiples = ['SINGLE', 'PAIR', 'TRIO', 'SQUAREBOMB']
@@ -382,9 +399,9 @@ class Hand(Cards):
                 new_fullhouses = Combination(cards_list=fullhouse_cards)
 
                 if new_fullhouses not in fullhouses:
-                        fullhouses.append(new_fullhouses)
+                    fullhouses.append(new_fullhouses)
 
-                if new_fullhouses.phoenix_flag:
+                if new_fullhouses.phoenix_flag and trio.phoenix_flag:
                     low_fullhouse = Combination(cards_list=fullhouse_cards,
                                                   type=new_fullhouses.type,
                                                   level=min(new_fullhouses.get_distinct_powers(with_phoenix=False)))

@@ -22,6 +22,7 @@ class Fullhouse(CombinationAnalyzer):
         buckets = Cards.bucketize_hands(combination_cards.cards)
 
         level = None
+        phoenix_used = False
         for bucket_level, bucket in buckets.items():
             if bucket_level == Phoenix().power and not combination_cards.phoenix_flag:
                 return
@@ -29,8 +30,12 @@ class Fullhouse(CombinationAnalyzer):
             if len(bucket) > 3:
                 return
 
-            if len(bucket) == 1 and bucket_level != Phoenix().power:
-                return
+            if len(bucket) == 1:
+                if bucket_level != Phoenix().power and combination_cards.phoenix_flag:
+                    if phoenix_used:
+                        return
+                    else:
+                        phoenix_used = True
 
             if len(bucket) == 3:
                 level = [bucket_level]

@@ -10,7 +10,10 @@ class SquareBomb(CombinationAnalyzer):
         if len(combination_cards.cards) != 4:
             return
 
-        if len(combination_cards.get_distinct_powers(with_phoenix=True)) != 1 and not combination_cards.phoenix_flag:
+        if combination_cards.phoenix_flag:
+            return
+
+        if len(combination_cards.get_distinct_powers(with_phoenix=True)) != 1:
             return
 
         # Assuming that the level of the Phoenix has been setup

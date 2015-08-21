@@ -67,7 +67,7 @@ class Combination(Cards):
 
         if analysis:
             if self.level not in analysis:
-                raise ValueError('Incoherent analysis of the combinations')
+                raise ValueError('%s - Incoherent analysis of the combinations' % self)
         else:
             raise ValueError('Incoherent combinations type')
 

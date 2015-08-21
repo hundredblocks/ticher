@@ -22,7 +22,7 @@ class TestHand(unittest.TestCase):
 
         combination = hand.find_lowest_combination(1, 'PAIR')
         print(combination)
-        self.assertFalse(combination.phoenix_flag)
+        self.assertTrue(combination.phoenix_flag)
 
     def test_find_low_pair_with_phoenix(self):
         cards = 'Phoenix, 2_Pa, 3_Pa, 4_Pa, 5_Pa'
@@ -52,7 +52,7 @@ class TestHand(unittest.TestCase):
         cards = '2_Pa, 2_Sw, 3_Pa, 4_Pa, 5_Pa, 6_Pa, 5_Ja, 5_St'
         hand = Hand(cards_string=cards)
 
-        combination = hand.find_lowest_combination(5, 'STRAIGHT')
+        combination = hand.find_lowest_combination(5, 'STRAIGHT', 5)
         print(combination)
         self.assertIsNotNone(combination)
 
@@ -60,7 +60,7 @@ class TestHand(unittest.TestCase):
         cards = '2_Sw, 3_Pa, 4_Pa, 5_Pa, 6_Pa, 5_Ja, 5_St'
         hand = Hand(cards_string=cards)
 
-        combination = hand.find_lowest_combination(5, 'STRAIGHT')
+        combination = hand.find_lowest_combination(5, 'STRAIGHT', 5)
         print(combination)
         self.assertIsNotNone(combination)
 
@@ -68,7 +68,7 @@ class TestHand(unittest.TestCase):
         cards = '2_Sw, 3_Pa, Phoenix, 5_Pa, 6_Pa'
         hand = Hand(cards_string=cards)
 
-        combination = hand.find_lowest_combination(5, 'STRAIGHT')
+        combination = hand.find_lowest_combination(5, 'STRAIGHT', 5)
         print(combination)
         self.assertIsNotNone(combination)
 
@@ -76,7 +76,7 @@ class TestHand(unittest.TestCase):
         cards = '2_Sw, 3_Pa, 4_Sw, Phoenix, 5_Pa, 6_Pa, 7_Sw, 8_Pa'
         hand = Hand(cards_string=cards)
 
-        combination = hand.find_lowest_combination(5, 'STRAIGHT')
+        combination = hand.find_lowest_combination(5, 'STRAIGHT', 5)
         print(combination)
         self.assertIsNotNone(combination)
 
@@ -88,7 +88,7 @@ class TestHand(unittest.TestCase):
         cards = ' 4_Sw, Phoenix, 5_Pa, 6_Pa, 7_Sw, 8_Pa'
         hand = Hand(cards_string=cards)
 
-        combination = hand.find_lowest_combination(5, 'STRAIGHT')
+        combination = hand.find_lowest_combination(5, 'STRAIGHT', length=5)
         print(combination)
         self.assertIsNotNone(combination)
 
@@ -100,7 +100,7 @@ class TestHand(unittest.TestCase):
         cards = ' 4_Sw, 6_Pa, 7_Sw, 8_Pa, 9_Sw, 10_Pa'
         hand = Hand(cards_string=cards)
 
-        combination = hand.find_lowest_combination(3, 'STRAIGHT')
+        combination = hand.find_lowest_combination(3, 'STRAIGHT', 5)
         print(combination)
         self.assertIsNotNone(combination)
 
@@ -108,7 +108,7 @@ class TestHand(unittest.TestCase):
         cards = '2_Sw, 2_Pa, 3_Sw,3_Pa'
         hand = Hand(cards_string=cards)
 
-        combination = hand.find_lowest_combination(2, 'STEPS')
+        combination = hand.find_lowest_combination(2, 'STEPS', 4)
         print(combination)
         self.assertEqual(combination.type, 'STEPS')
 
@@ -117,7 +117,7 @@ class TestHand(unittest.TestCase):
                 ' 6_Sw,6_Pa, 7_Sw, 7_Pa'
         hand = Hand(cards_string=cards)
 
-        combination = hand.find_lowest_combination(2, 'STEPS')
+        combination = hand.find_lowest_combination(2, 'STEPS', 4)
         print(combination)
         self.assertEqual(combination.type, 'STEPS')
 
@@ -125,7 +125,7 @@ class TestHand(unittest.TestCase):
         cards = '2_Sw, 6_Pa'
         hand = Hand(cards_string=cards)
 
-        combination = hand.find_lowest_combination(2, 'STEPS')
+        combination = hand.find_lowest_combination(2, 'STEPS', 4)
 
         print(combination)
         self.assertIsNone(combination)
@@ -134,26 +134,15 @@ class TestHand(unittest.TestCase):
         cards = '6_Sw, 6_Pa'
         hand = Hand(cards_string=cards)
 
-        combination = hand.find_lowest_combination(2, 'STEPS')
-
+        combination = hand.find_lowest_combination(2, 'STEPS', 4)
         print(combination)
         self.assertIsNone(combination)
-
-    def test_3_straights(self):
-        cards = '5_Sw, 6_Sw, Phoenix'
-        hand = Hand(cards_string=cards)
-
-        straight = hand.find_straight(hand, 6, 3)
-        print(straight)
 
     def test_find_long_steps(self):
         cards = '5_Sw, 5_Pa, 6_Sw,6_Pa, 7_Sw, 7_Pa'
         hand = Hand(cards_string=cards)
 
-        straight = hand.find_straight(hand, 2, 3)
-        print(straight)
-
-        combination = hand.find_lowest_combination(2, 'STEPS', 3)
+        combination = hand.find_lowest_combination(2, 'STEPS', 6)
         print(combination)
         self.assertEqual(combination.type, 'STEPS')
 
@@ -161,7 +150,7 @@ class TestHand(unittest.TestCase):
         cards = '5_Sw, 5_Pa, 6_Sw, 6_Pa, 7_Sw, Phoenix'
         hand = Hand(cards_string=cards)
 
-        combination = hand.find_lowest_combination(2, 'STEPS', length=3)
+        combination = hand.find_lowest_combination(2, 'STEPS', length=6)
         print(combination)
         self.assertEqual(combination.type, 'STEPS')
 
@@ -169,7 +158,7 @@ class TestHand(unittest.TestCase):
         cards = '5_Sw, 5_Pa, 6_Sw, Phoenix, 7_Sw, 7_Pa, 8_Sw, 8_Pa'
         hand = Hand(cards_string=cards)
 
-        combination = hand.find_lowest_combination(2, 'STEPS')
+        combination = hand.find_lowest_combination(2, 'STEPS', 6)
         print(combination)
         self.assertEqual(combination.type, 'STEPS')
 
@@ -184,7 +173,7 @@ class TestHand(unittest.TestCase):
 
         cards = 'Dog, Phoenix, Mahjong, 2_St, 3_Sw, 3_Pa,4_Pa,  5_St, 6_Sw, 6_Ja, 8_Pa, 9_Pa, J_Sw, K_Sw, A_Ja'
         hand = Hand(cards_string=cards)
-        combination = hand.find_lowest_combination(0, 'STRAIGHT')
+        combination = hand.find_lowest_combination(0, 'STRAIGHT', 5)
         self.assertEqual(combination.type, 'STRAIGHT')
 
     def test_stght_2(self):
@@ -196,35 +185,39 @@ class TestHand(unittest.TestCase):
         # cards = 'Phoenix,2_Pa, 3_Pa, 4_Sw, 5_St, K_Sw, A_Ja'
         # cards = 'Dragon, Phoenix,2_Pa, 3_Pa, J_Sw, Q_St, K_Sw, A_Ja'
         hand = Hand(cards_string=cards)
-        combination = Hand.find_all_straights(hand)
+        combination = hand.combinations['STRAIGHT']
+        self.assertEqual(combination[0].type, 'STRAIGHT')
         print(*combination, sep='\n')
 
     def test_all_multiples_2(self):
         cards = '2_Sw, 2_St, 2_Ja, 3_St, 3_Sw, Phoenix'
         # cards = '3_Sw'
         hand = Hand(cards_string=cards)
-        combination = Hand.find_all_multiples(hand, 2)
+        combination = hand.combinations['PAIR']
+        self.assertEqual(combination[0].type, 'PAIR')
         print(*combination, sep='\n')
 
     def test_all_multiples_3(self):
         cards = '2_Sw, 2_St, 2_Ja, 3_St, 3_Sw, Phoenix'
         # cards = '3_Sw'
         hand = Hand(cards_string=cards)
-        combination = Hand.find_all_multiples(hand, 3)
+        combination = hand.combinations['TRIO']
+        self.assertEqual(combination[0].type, 'TRIO')
         print(*combination, sep='\n')
 
     def test_all_multiples_4(self):
         cards = '2_Sw, 2_St, 2_Ja, 3_St, 3_Sw, Phoenix'
         # cards = '3_Sw'
         hand = Hand(cards_string=cards)
-        combination = Hand.find_all_multiples(hand, 4)
+        combination = hand.combinations['SQUAREBOMB']
+        self.assertEqual(len(combination), 0)
         print(*combination, sep='\n')
 
     def test_all_fulls(self):
         cards = '2_Sw, 2_St, 4_Ja, Phoenix, 4_Pa'
         # cards = '3_Sw'
         hand = Hand(cards_string=cards)
-        combination = Hand.find_all_fullhouses(hand)
+        combination = hand.combinations['FULLHOUSE']
         print(*combination, sep='\n')
 
     def test_find_all(self):

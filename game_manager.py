@@ -23,6 +23,7 @@ class GameManager():
         self.game_over = False
         cards = Deck()
         divided_cards = cards.split_equally(4)
+
         if players is None:
             players = [DumbAI(hand=Hand(cards_list=hand), name='Player %s' % index) for index, hand in enumerate(divided_cards)]
         if all(player.hand is None for player in players):
@@ -49,7 +50,17 @@ class GameManager():
             return True
 
         # CHECK if both people from same team are out
-        self.game_over = sum([1 if not x.is_out() else 0 for x in self.players]) <= 1
+        players_in = self.get_player_still_game()
+
+        if len(players_in) <= 1:
+            self.game_over = True
+
+        if len(players_in) == 2:
+            player_in = players_in[0]
+            if player_in.name == self.get_partner(player_in).name:
+                print('########## Game Over - 1 / 2')
+                self.game_over = True
+
         return self.game_over
 
     def run_game(self):
@@ -168,9 +179,10 @@ class GameManager():
             if player_action.wish is not None:
                 self.wish_for_power = player_action.wish
 
-            # TODO - TEMP
             if player.is_out():
-                print('=====> %s is out' % player)
+                for other_player in self.players:
+                    other_player.player_out(player_name=player.name, is_first=self.is_first_out(player))
+                print('=====> %s is out - First %s' % (player, self.is_first_out(player)))
 
             self.present_trick.update(action=player_action, out=player.is_out())
             self.publish_action_to_players(action=player_action,
@@ -237,6 +249,13 @@ class GameManager():
         for player in self.players:
             if player.name == player_name:
                 return player
+
+    def get_partner(self, player):
+        player_index = self.players.index(player)
+        return self.players[(player_index + 2) % 4]
+
+    def is_first_out(self, player):
+        return player.is_out() and len(self.get_player_still_game()) == 3
 
 
 class GameManagerException(Exception):

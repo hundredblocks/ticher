@@ -20,13 +20,16 @@ class DumbAI(Player):
 
     def __init__(self, name, hand):
         super(DumbAI, self).__init__(name=name, hand=hand)
+        # TODO - TEMP
+        self.call_tichu()
 
     # takes in a game state and returns what to play
     def get_combination_to_play(self, trick, wish=None):
         combination_to_play = None
 
-        if Mahjong() in self.hand.cards:
-            return Combination(cards_list=[Mahjong()])
+        # EXAMPLE
+        # if Mahjong() in self.hand.cards:
+        #     return Combination(cards_list=[Mahjong()])
 
         # if there is a trick being played
         last_play = trick.get_last_play()
@@ -53,7 +56,7 @@ class DumbAI(Player):
         second_lowest_card = (self.hand - lowest_card).find_lowest_combination(-1, 'SINGLE')
         third_lowest_card = (self.hand - lowest_card - second_lowest_card).find_lowest_combination(-1, 'SINGLE')
 
-        self.wish = lowest_card.cards[0].power
+        # self.wish = lowest_card.cards[0].power
 
         return [lowest_card.cards[0], third_lowest_card.cards[0], second_lowest_card.cards[0]]
 

@@ -37,13 +37,18 @@ class Player(BasePlayer):
         combination_to_play = self.get_combination_to_play(trick, wish)
 
         if combination_to_play is not None:
+            action_params = {}
+
+            if self.has_not_played():
+                action_params['tichu'] = self.tichu_called
+
+            if Mahjong() in combination_to_play.cards:
+                action_params['wish'] = self.wish
+
             self.hand -= combination_to_play
             self.hand_size -= combination_to_play.size
 
-            if Mahjong() in combination_to_play.cards:
-                return Action.play(player=self, combination=combination_to_play, wish=self.wish)
-            else:
-                return Action.play(player=self, combination=combination_to_play)
+            return Action.play(player=self, combination=combination_to_play, **action_params)
 
         else:
             # Empty action means passing
@@ -52,7 +57,6 @@ class Player(BasePlayer):
     @abstractmethod
     def get_combination_to_play(self, trick, wish):
         """
-
             :rtype: Combination
         """
         pass
@@ -101,15 +105,26 @@ class Player(BasePlayer):
         if action.player.name != self.name:
             player = self.get_player(action.player.name)
             player.play_action(action)
-        if not action.has_passed():
-            for player in self.other_players:
-                player.update_potential_cards(action.combination.cards)
 
-                # TODO - Temp
-                if not self.is_out() and not player.is_out() and player.is_hand_known():
-                    print('!!!###!!! Careful %s - %s knows your hand' % (player.name, self.name),
-                          '          cards %s - points %s' % (player.get_hand(), player.points),
-                          sep='\n')
+            if not action.has_passed():
+                for player in self.other_players:
+                    player.update_potential_cards(action.combination.cards)
+
+                    # TODO - Temp
+                    if not self.is_out() and not player.is_out() and player.is_hand_known():
+                        print('!!!###!!! Careful %s - %s knows your hand' % (player.name, self.name),
+                              '          cards %s - points %s' % (player.get_hand(), player.points),
+                              sep='\n')
+
+            if action.tichu:
+                player.call_tichu()
+
+    def player_out(self, player_name, is_first=False):
+        if self.name != player_name:
+            player = self.get_player(player_name)
+            player.out(first_out=is_first)
+        else:
+            self.out(first_out=is_first)
 
     def end_of_trick(self, trick_owner_name, trick):
         if trick_owner_name != self.name:
@@ -123,9 +138,5 @@ class Player(BasePlayer):
             if other_player.name == player_name:
                 return other_player
 
-
     def get_partner(self):
         return self.other_players[1]
-
-    def __repr__(self):
-        return '%s - %s - %s points' % (self.name, self.hand.cards, self.points)

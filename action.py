@@ -15,8 +15,9 @@ class Action():
     player = None
     action_type = None
     wish = None
+    tichu = None
 
-    def __init__(self, player, combination: Combination=None, wish: int=None, bomb=False):
+    def __init__(self, player, combination: Combination=None, wish: int=None, bomb=False, tichu=False):
         if combination:
             self.combination = combination
         self.player = player
@@ -25,28 +26,32 @@ class Action():
         else:
             self.action_type = ActionsType.play
         self.wish = wish
+        self.tichu = tichu
+
         if bomb:
             self.action_type = ActionsType.bomb
 
     def has_passed(self):
-        return not self.combination
+        return self.action_type == ActionsType.passes
 
     @staticmethod
     def passes(player):
         return Action(player)
 
     @staticmethod
-    def play(player, combination: Combination, wish=None):
-        return Action(player, combination, wish=wish)
+    def play(player, combination: Combination, wish=None, tichu=None):
+        return Action(player, combination, wish=wish, tichu=tichu)
 
     def __repr__(self):
         if self.has_passed():
             return '%s passed' % self.player.name
         else:
+            action_string = '%s played %s' % (self.player.name, self.combination)
             if self.wish is not None:
-                return '%s played %s - wished for %s' % (self.player.name, self.combination, self.wish)
-            else:
-                return '%s played %s' % (self.player.name, self.combination)
+                action_string += ' - wished for %s' % self.wish
+            if self.tichu:
+                action_string += ' - calling tichu'
+            return action_string
 
     def assert_valid(self):
         if self.action_type == ActionsType.play:

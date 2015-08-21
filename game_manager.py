@@ -23,6 +23,7 @@ class GameManager():
         self.game_over = False
         cards = Deck()
         divided_cards = cards.split_equally(4)
+
         if players is None:
             players = [DumbAI(hand=Hand(cards_list=hand), name='Player %s' % index) for index, hand in enumerate(divided_cards)]
         if all(player.hand is None for player in players):
@@ -178,9 +179,10 @@ class GameManager():
             if player_action.wish is not None:
                 self.wish_for_power = player_action.wish
 
-            # TODO - TEMP
             if player.is_out():
-                print('=====> %s is out' % player)
+                for other_player in self.players:
+                    other_player.player_out(player_name=player.name, is_first=self.is_first_out(player))
+                print('=====> %s is out - First %s' % (player, self.is_first_out(player)))
 
             self.present_trick.update(action=player_action, out=player.is_out())
             self.publish_action_to_players(action=player_action,
@@ -251,6 +253,9 @@ class GameManager():
     def get_partner(self, player):
         player_index = self.players.index(player)
         return self.players[(player_index + 2) % 4]
+
+    def is_first_out(self, player):
+        return player.is_out() and len(self.get_player_still_game()) == 3
 
 
 class GameManagerException(Exception):

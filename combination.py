@@ -21,14 +21,15 @@ class Combination(Cards):
     level = None
     type = None
 
-    def __init__(self, cards_list: list=None, cards_dict_list: list=None, cards_string: str=None, phoenix_power: int=None):
+    def __init__(self, cards_list: list=None, cards_dict_list: list=None, cards_string: str=None, level: int=None):
         super(Combination, self).__init__(cards_list, cards_dict_list, cards_string)
+        self.level = level
         self.get_type()
-        self.get_level()
+        self.check_level()
         self._assert_valid()
 
     def get_type(self):
-        phoenixless_combination = [card for card in self.cards if card != Phoenix()]
+        phoenixless_combination = (self-Phoenix()).cards
         combination = [card for card in self.cards]
         phoenixless_combination_size = len(phoenixless_combination)
 
@@ -124,8 +125,31 @@ class Combination(Cards):
 
         raise ValueError('Unknown Combination %s' % self)
 
-    def get_level(self):
-        self.level = max([card.power for card in self.cards])
+    # TODO remove set_power everywhere
+    def check_level(self):
+        if not self.level:
+            if self.type == 'FULLHOUSE':
+                buckets = Cards.bucketize_hands(self.cards)
+                for level, cards in buckets.items():
+                    if len(cards) == 3:
+                        self.level = level
+                        break
+                else:
+                    if self.phoenix_flag:
+                        phoenixless_cards = self-Phoenix()
+                        self.level = max([card.power for card in phoenixless_cards.cards])
+            # TODO Redo nicely
+            else:
+                if self.type == 'STRAIGHT' and self.phoenix_flag:
+                    phoenixless_combination = (self-Phoenix()).cards
+                    phoenixless_combination_size = len(phoenixless_combination)
+                    distinct_values = list(set([card.power for card in phoenixless_combination]))
+                    value_span = max(distinct_values) - min(distinct_values) + 1
+
+                    if value_span == phoenixless_combination_size:
+                        self.level = max([card.power for card in phoenixless_combination]) + 1
+
+                self.level = max([card.power for card in self.cards])
 
     def _assert_valid(self):
         assert self.type in TYPES

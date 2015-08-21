@@ -190,7 +190,7 @@ class TestHand(unittest.TestCase):
     def test_stght_2(self):
 
         # cards = ' 2_St, 2_Sw, 3_Sw, 4_Pa, 5_St, 6_Sw, Phoenix, 8_Ja ' #, 8_Pa, 9_Pa, J_Sw, K_Sw, A_Ja'
-        # cards = 'Dog, Phoenix, Mahjong, 2_St, 3_Sw, 3_Pa, 5_St, 6_Sw, 6_Ja, 8_Pa, 9_Pa, J_Sw, Q_Sw, K_Sw, A_Ja'
+        # cards = 'Dog, Phoenix, Mahjong, 2_St, 3_Sw, 3_Pa, 5_St, 6_Sw, 6_Ja, 8_Pa, 9_Pa, 10_Ja, J_Sw, Q_Sw, K_Sw, A_Ja'
         # cards = 'Phoenix, 3_Sw, 3_Pa, 4_Sw, 5_St, 6_Sw, 6_Ja, 7_Sw, K_Sw, A_Ja'
         cards = 'Phoenix, 3_Pa, 4_Sw, 5_St, 6_Sw, 6_Ja, 7_Sw, K_Sw, A_Ja'
         # cards = 'Phoenix,2_Pa, 3_Pa, 4_Sw, 5_St, K_Sw, A_Ja'
@@ -199,17 +199,29 @@ class TestHand(unittest.TestCase):
         combination = Hand.find_all_straights(hand)
         print(*combination, sep='\n')
 
-    def test_all_multiples(self):
+    def test_all_multiples_2(self):
         cards = '2_Sw, 2_St, 2_Ja, 3_St, 3_Sw, Phoenix'
         # cards = '3_Sw'
         hand = Hand(cards_string=cards)
-        # combination = Hand.find_all_multiples(hand, 2)
+        combination = Hand.find_all_multiples(hand, 2)
+        print(*combination, sep='\n')
+
+    def test_all_multiples_3(self):
+        cards = '2_Sw, 2_St, 2_Ja, 3_St, 3_Sw, Phoenix'
+        # cards = '3_Sw'
+        hand = Hand(cards_string=cards)
         combination = Hand.find_all_multiples(hand, 3)
-        # combination = Hand.find_all_multiples(hand, 4)
+        print(*combination, sep='\n')
+
+    def test_all_multiples_4(self):
+        cards = '2_Sw, 2_St, 2_Ja, 3_St, 3_Sw, Phoenix'
+        # cards = '3_Sw'
+        hand = Hand(cards_string=cards)
+        combination = Hand.find_all_multiples(hand, 4)
         print(*combination, sep='\n')
 
     def test_all_fulls(self):
-        cards = '2_Sw, 2_St, 2_Ja, 3_St, 3_Sw, Phoenix'
+        cards = '2_Sw, 2_St, 4_Ja, Phoenix, 4_Pa'
         # cards = '3_Sw'
         hand = Hand(cards_string=cards)
         combination = Hand.find_all_fullhouses(hand)

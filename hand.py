@@ -10,9 +10,11 @@ __author__ = 'EmmanuelAmeisen'
 # TODO array of combination
 # TODO hash of combinations
 # TODO sequence of combinations for the AI
+# TODO Combinations like hand
 
 # Card, combination, Hand, trick, game, match
 class Hand(Cards):
+    #TODO Dict with eys = combination name and items is sorted array
     combinations = None
 
     # Should take in string or list of cards
@@ -158,9 +160,11 @@ class Hand(Cards):
             if len(cards_this_level) > 1:
                 for pair in itertools.combinations(cards_this_level, multiple):
                     multiples.append(Combination(cards_list=list(pair)))
+        multiples.sort()
 
         return multiples
 
+    # TODO Fullhouses phoenix work because of set_lvl
     @staticmethod
     def find_all_fullhouses(cards: Cards):
         duos = Hand.find_all_multiples(cards, 2)
@@ -175,14 +179,18 @@ class Hand(Cards):
                 fullhouse_cards.extend(possible_duo.cards)
                 fullhouses.append(Combination(cards_list=fullhouse_cards))
 
+        fullhouses.sort()
+
         return fullhouses
+
+    @staticmethod
+    def find_all_steps(cards: Cards):
+        pass
 
 
     @staticmethod
     def find_all_straights(cards: Cards):
-        #TODO fix levels
         #TODO, put the level in there to differentiate phoenix at start and end
-        #TODO Sort the combinations
         # remove Dog and Dragon from any straights
         cards = cards - Dog() - Dragon()
 
@@ -220,11 +228,19 @@ class Hand(Cards):
 
         # Now that we have the powers, we get all possible straights
         straights = []
+        # for straight in possible_straights_power_values:
+        #     straight_cards = [buckets[power] for power in straight]
+        #     for combinations in itertools.product(*straight_cards):
+        #         straights.append(Combination(cards_list=list(combinations)))
+        # TODO Phoenix end of straight with ace
+        # TODO Phoenix at start and end of straights
         for straight in possible_straights_power_values:
             straight_cards = [buckets[power] for power in straight]
+            # level = max(straight)
             for combinations in itertools.product(*straight_cards):
-                # straights.append(Cards(cards_list=list(combinations)))
-                straights.append(Combination(cards_list=list(combinations)))
+
+                # straights.append(Combination(cards_list=list(combinations),level=level))
+                straights.append(Combination(cards_list=list(combinations),))
 
         # We replace the phoenix in all the straights where we can
         new_straights = []
@@ -235,7 +251,6 @@ class Hand(Cards):
                         new_cards = straight-card+Phoenix()
                         new_combo = Combination(cards_list=new_cards.cards)
                         new_straights.append(new_combo)
-                        # new_straights.append(straight - card + Phoenix())
         straights.extend(new_straights)
         straights.sort()
         return straights

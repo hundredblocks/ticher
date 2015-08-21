@@ -4,7 +4,7 @@ from card import Card, Phoenix, Dragon, Mahjong, Dog
 
 __author__ = 'EmmanuelAmeisen'
 
-
+#TODO make cards iterable ?
 class Cards():
     size = None
     cards = None

@@ -1,5 +1,7 @@
+import itertools
 from card import Card, Phoenix, Dragon
-from game_manager import GameManager
+from cards import Cards
+from combinations.steps import Steps
 from hand import Hand
 
 __author__ = 'EmmanuelAmeisen'
@@ -42,18 +44,18 @@ cards_list = [
     # Dragon(),
 
 ]
-test = [1, 2, 3, 4]
+test = [[[1, 2], [1, 3]], [5, 6]]
 
-d = Dragon()
+cards = '5_Sw, 5_Pa, 6_Sw, Phoenix, 7_Sw, 7_Pa, 8_Sw, 8_Pa'
+# cards = '5_Sw, 5_Pa, 6_Sw, 6_St, 7_Sw, 7_Pa, 8_Sw, 8_Pa'
+cards = Cards(cards_string=cards)
 
-hand1 = Hand(cards_string='K_Pa, K_Sw')
-hand2 = Hand(cards_string='Phoenix, A_Pa, Q_Pa')
-hand3 = Hand(cards_string='K_Pa, Mahjong, 2_Pa, 3_Pa, 4_Pa, 5_Pa, 6_Pa')
-hand4 = Hand(cards_string='J_Pa')
+print(*Hand.find_all_steps(cards), sep='\n')
+
 # players = [DumbAI(hand1, 'AI1'), DumbAI(hand2, 'AI2'), DumbAI(hand3, 'AI3'), DumbAI(hand4, 'AI4')]
 # players = [DumbAI(Hand(), 'AI1'), DumbAI(Hand(), 'AI2'), DumbAI(Hand(), 'AI3'), DumbAI(Hand(), 'AI4')]
 
 # gman = GameManager(players)
-gman = GameManager()
-
-gman.run_game()
+# gman = GameManager()
+#
+# gman.run_game()

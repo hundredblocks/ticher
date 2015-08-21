@@ -1,8 +1,10 @@
 from collections import defaultdict
+import hashlib
 import random
 from card import Card, Phoenix, Dragon, Mahjong, Dog
 
 __author__ = 'EmmanuelAmeisen'
+
 
 #TODO make cards iterable ?
 class Cards():
@@ -80,6 +82,17 @@ class Cards():
         new_cards.extend(cards_to_add.cards)
         return Cards(new_cards)
 
+    def __iter__(self):
+        return self.cards.__iter__()
+
+    def __hash__(self):
+        cards_hash = hashlib.md5()
+        for card in self:
+            cards_hash.update(card.__repr__().encode())
+        cards_hash = cards_hash.hexdigest()
+        cards_hash = int(cards_hash, 16)
+        return cards_hash
+
     def split_equally(self, integer):
         cards_copy = self.cards.copy()
         random.shuffle(cards_copy)
@@ -95,6 +108,22 @@ class Cards():
 
     def get_points(self):
         return sum([card.point for card in self.cards])
+
+    def get_distinct_suits(self, with_phoenix=True):
+        if with_phoenix:
+            return list(set([card.suit for card in self.cards]))
+        else:
+            return list(set([card.suit for card in (self - Phoenix()).cards]))
+
+    def get_distinct_powers(self, with_phoenix=True):
+        if with_phoenix:
+            return list(set([card.power for card in self.cards]))
+        else:
+            return list(set([card.power for card in (self - Phoenix()).cards]))
+
+    def get_power_span(self, with_phoenix=True):
+        distinct_power = self.get_distinct_powers(with_phoenix)
+        return max(distinct_power) - min(distinct_power) + 1
 
 
 class Deck(Cards):

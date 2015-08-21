@@ -12,7 +12,6 @@ __author__ = 'EmmanuelAmeisen'
 # TODO Look into reinforcment learning ? Reducing space of universe ?
 # TDLearninfg for temporal differences
 
-
 class Player(BasePlayer):
     other_players = None
     wish = None

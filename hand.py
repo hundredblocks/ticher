@@ -2,7 +2,8 @@ from collections import defaultdict
 import itertools
 from card import Card, Phoenix, Dragon, Dog, Mahjong
 from cards import Cards
-from combination import Combination
+from combinations.combination import Combination
+from combinations.straight import Straight
 
 __author__ = 'EmmanuelAmeisen'
 
@@ -21,6 +22,20 @@ class Hand(Cards):
     def __init__(self, cards_list: list=None, cards_dict_list: list=None, cards_string: str=None):
         super(Hand, self).__init__(cards_list, cards_dict_list, cards_string)
         self.bucketized_cards = self.bucketize_hands(self.cards)
+        self.combinations = defaultdict(list)
+        self.find_all_combinations()
+
+    def find_all_combinations(self):
+        # Find all Single
+        cards = Cards(cards_list=self.cards)
+        self.combinations['SINGLE'].extend(Hand.find_all_multiples(cards, 1))
+        self.combinations['PAIR'].extend(Hand.find_all_multiples(cards, 2))
+        self.combinations['TRIO'].extend(Hand.find_all_multiples(cards, 3))
+        self.combinations['SQUAREBOMB'].extend(Hand.find_all_multiples(cards, 4))
+        self.combinations['STEPS'].extend(Hand.find_all_steps(cards))
+        self.combinations['STRAIGHT'].extend(Hand.find_all_straights(cards))
+        self.combinations['STRAIGHTBOMB'].extend(Hand.find_all_straights(cards, bomb=True))
+        self.combinations['FULLHOUSE'].extend(Hand.find_all_fullhouses(cards))
 
     # TODO Flag for multiples called favor_no_phoenix, true by default, if false then will just output lowest multiple
     def find_lowest_combination(self, level_to_beat, combination_type, length=None):
@@ -146,114 +161,48 @@ class Hand(Cards):
             if rest:
                 return rest + Phoenix()
 
-    #TODO pairs being trio ?
-
-    @staticmethod
-    def find_all_multiples(cards: Cards, multiple: int):
-        cards = cards - Dog() - Dragon()
-        buckets = Cards.bucketize_hands(cards.cards)
-        multiples = []
-        for level in range(Mahjong().power+1, Dragon().power):
-            cards_this_level = buckets[level]
-            if (Phoenix().power in buckets.keys()) and (multiple != 4):
-                cards_this_level.append(Phoenix())
-            if len(cards_this_level) > 1:
-                for pair in itertools.combinations(cards_this_level, multiple):
-                    multiples.append(Combination(cards_list=list(pair)))
-        multiples.sort()
-
-        return multiples
-
-    # TODO Fullhouses phoenix work because of set_lvl
-    @staticmethod
-    def find_all_fullhouses(cards: Cards):
-        duos = Hand.find_all_multiples(cards, 2)
-        trios = Hand.find_all_multiples(cards, 3)
-        fullhouses = []
-        for trio in trios:
-            possible_duos = [duo for duo in duos if trio.level != duo.level]
-            if trio.phoenix_flag:
-                possible_duos = [duo for duo in possible_duos if not duo.phoenix_flag]
-            for possible_duo in possible_duos:
-                fullhouse_cards = trio.cards.copy()
-                fullhouse_cards.extend(possible_duo.cards)
-                fullhouses.append(Combination(cards_list=fullhouse_cards))
-
-        fullhouses.sort()
-
-        return fullhouses
-
     @staticmethod
     def find_all_steps(cards: Cards):
-        pass
+        buckets = Cards.bucketize_hands((cards - Phoenix()).cards)
 
+        steps = []
 
-    @staticmethod
-    def find_all_straights(cards: Cards):
-        #TODO, put the level in there to differentiate phoenix at start and end
-        # remove Dog and Dragon from any straights
-        cards = cards - Dog() - Dragon()
-
-        buckets = Cards.bucketize_hands(cards.cards)
-        power_values = buckets.keys()
-        possible_straights_power_values = []
-
-        # Get all possible power combinations
-        for start in range(Mahjong().power, Dragon().power):
-
+        for start in range(Mahjong().power + 1, Dragon().power):
             length = 0
-            current_straight_values = []
+            current_steps = {}
+            phoenix_used = False
 
-            for next_value in range(start, Dragon().power):
+            for value in range(start, Dragon().power):
                 found = False
-                new_value = None
+                cards_at_value = None
 
-                if next_value in power_values:
-                    found = True
-                    new_value = next_value
-
-                elif Phoenix().power in power_values and Phoenix().power not in current_straight_values:
-                    if next_value != 1:
+                if value in buckets:
+                    if len(buckets[value]) >= 2:
                         found = True
-                        new_value = Phoenix().power
+                        cards_at_value = buckets[value]
 
-                if found and new_value not in current_straight_values:
-                    current_straight_values.append(new_value)
+                    elif len(buckets[value]) == 1 and cards.phoenix_flag and not phoenix_used:
+                        phoenix_used = True
+                        cards_at_value = Cards(cards_list=buckets[value]) + Phoenix()
+                        found = True
+
+                if found and value not in current_steps:
+                    current_steps[value] = cards_at_value
                     length += 1
-                    if length >= 5:
-                        possible_straights_power_values.append(current_straight_values.copy())
+                    if length >= 2:
+                        steps_cards = [list(itertools.combinations(cards, 2)) for level, cards in current_steps.items()]
 
+                        for combinations in itertools.product(*steps_cards):
+                            cards_list = list(itertools.chain(*combinations))
+                            combination = Combination(cards_list=cards_list)
+                            if combination not in steps:
+                                steps.append(combination)
                 elif not found:
                     break
 
-        # Now that we have the powers, we get all possible straights
-        straights = []
-        # for straight in possible_straights_power_values:
-        #     straight_cards = [buckets[power] for power in straight]
-        #     for combinations in itertools.product(*straight_cards):
-        #         straights.append(Combination(cards_list=list(combinations)))
-        # TODO Phoenix end of straight with ace
-        # TODO Phoenix at start and end of straights
-        for straight in possible_straights_power_values:
-            straight_cards = [buckets[power] for power in straight]
-            # level = max(straight)
-            for combinations in itertools.product(*straight_cards):
-
-                # straights.append(Combination(cards_list=list(combinations),level=level))
-                straights.append(Combination(cards_list=list(combinations),))
-
-        # We replace the phoenix in all the straights where we can
-        new_straights = []
-        for straight in straights:
-            if Phoenix() not in straight.cards:
-                for card in straight.cards:
-                    if not card == Mahjong():
-                        new_cards = straight-card+Phoenix()
-                        new_combo = Combination(cards_list=new_cards.cards)
-                        new_straights.append(new_combo)
-        straights.extend(new_straights)
-        straights.sort()
-        return straights
+        if cards.phoenix_flag:
+            Hand.substitute_phoenix_in_combinations(steps)
+        return steps
 
     @staticmethod
     def find_steps_old(cards, level_to_beat, steps_length=None):
@@ -331,6 +280,132 @@ class Hand(Cards):
                     return first_straight + second_straight
                 else:
                     first_straight = second_straight
+    @staticmethod
+    def find_all_multiples(cards: Cards, multiple: int):
+        cards = cards - Dog() - Dragon()
+        buckets = Cards.bucketize_hands(cards.cards)
+        multiples = []
+        if multiple == 1:
+            for card in cards:
+                multiples.append(Combination(cards_list=[card]))
+            return multiples
+
+        for level in range(Mahjong().power+1, Dragon().power):
+            cards_this_level = buckets[level]
+            if (Phoenix().power in buckets.keys()) and (multiple != 4):
+                cards_this_level.append(Phoenix())
+            if len(cards_this_level) > 1:
+                for pair in itertools.combinations(cards_this_level, multiple):
+                    multiples.append(Combination(cards_list=list(pair)))
+        multiples.sort()
+
+        return multiples
+
+    @staticmethod
+    def find_all_straights(cards: Cards, bomb=False):
+        # remove Dog and Dragon from any straights
+        cards = cards - Dog() - Dragon()
+
+        buckets = Cards.bucketize_hands(cards.cards)
+        power_values = buckets.keys()
+        possible_straights_power_values = []
+
+        # Get all possible power combinations
+        for start in range(Mahjong().power, Dragon().power):
+
+            length = 0
+            current_straight_values = []
+
+            for next_value in range(start, Dragon().power):
+                found = False
+                new_value = None
+
+                if next_value in power_values:
+                    found = True
+                    new_value = next_value
+
+                elif Phoenix().power in power_values and Phoenix().power not in current_straight_values:
+                    if next_value != 1:
+                        found = True
+                        new_value = Phoenix().power
+
+                if found and new_value not in current_straight_values:
+                    current_straight_values.append(new_value)
+                    length += 1
+                    if length >= 5:
+                        possible_straights_power_values.append(current_straight_values.copy())
+
+                elif not found:
+                    break
+
+        # Now that we have the powers, we get all possible straights
+        straights = []
+        for straight in possible_straights_power_values:
+            straight_cards = [buckets[power] for power in straight]
+            # level = max(straight)
+            for combinations in itertools.product(*straight_cards):
+
+                new_combination = Combination(cards_list=list(combinations),)
+
+                if bomb:
+                    if new_combination.bomb_level > 0:
+                        straights.append(new_combination)
+                    else:
+                        continue
+                else:
+                    if new_combination in straights:
+                        straights.append(Combination(cards_list=new_combination.cards, type=new_combination.type, level=new_combination.level - 1))
+                    else:
+                        straights.append(new_combination)
+
+        # We replace the phoenix in all the straights where we can
+        if not bomb and cards.phoenix_flag:
+            Hand.substitute_phoenix_in_combinations(straights)
+
+        # straights.extend(new_straights)
+        straights.sort()
+        return straights
+
+    @staticmethod
+    def find_all_fullhouses(cards_hand: Cards):
+        duos = Hand.find_all_multiples(cards_hand, 2)
+        trios = Hand.find_all_multiples(cards_hand, 3)
+        fullhouses = []
+        for trio in trios:
+            possible_duos = [duo for duo in duos if trio.level != duo.level]
+            if trio.phoenix_flag:
+                possible_duos = [duo for duo in possible_duos if not duo.phoenix_flag]
+
+            for possible_duo in possible_duos:
+                fullhouse_cards = trio.cards.copy()
+                fullhouse_cards.extend(possible_duo.cards)
+                new_fullhouses = Combination(cards_list=fullhouse_cards)
+
+                if new_fullhouses not in fullhouses:
+                        fullhouses.append(new_fullhouses)
+
+                if new_fullhouses.phoenix_flag:
+                    low_fullhouse = Combination(cards_list=fullhouse_cards,
+                                                  type=new_fullhouses.type,
+                                                  level=min(new_fullhouses.get_distinct_powers(with_phoenix=False)))
+
+                    if low_fullhouse not in fullhouses:
+                        fullhouses.append(low_fullhouse)
+
+        fullhouses.sort()
+
+        return fullhouses
+
+    @staticmethod
+    def substitute_phoenix_in_combinations(combinations_list):
+        for combination in combinations_list:
+            if Phoenix() not in combination:
+                for card in combination:
+                    if not card == Mahjong():
+                        new_cards = combination - card + Phoenix()
+                        new_combo = Combination(cards_list=new_cards.cards, level=combination.level, type=combination.type)
+                        if new_combo not in combinations_list:
+                            combinations_list.append(new_combo)
 
     def __sub__(self, other):
         cards = super().__sub__(other)

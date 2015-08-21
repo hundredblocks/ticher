@@ -227,6 +227,12 @@ class TestHand(unittest.TestCase):
         combination = Hand.find_all_fullhouses(hand)
         print(*combination, sep='\n')
 
+    def test_find_all(self):
+        cards = '5_Sw, 5_Pa, 6_Sw, Phoenix, 7_Sw, 7_Pa, 8_Sw, 8_Pa'
+        hand = Hand(cards_string=cards)
+        for name, combi in hand.combinations.items():
+            print(*combi, sep='\n')
+
     @unittest.expectedFailure
     def test_play_on_dragon(self):
         cards = 'Phoenix'

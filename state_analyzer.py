@@ -14,7 +14,8 @@ def get_type(curr_combination):
             return 'PAIR'
         if combination_size == 3:
             return 'TRIO'
-        #TODO Check for phoenix here
+
+        # TODO - Check for phoenix here
         if combination_size == 4:
             value_list = [x.get('value') for x in last_played]
             if value_list[0] == value_list[1] and value_list[1] == value_list[2]:
@@ -26,7 +27,8 @@ def get_type(curr_combination):
             value_list = [x.get('value') for x in last_played_sorted]
 
             if value_list[0] == value_list[1]:
-                #TODO get_fullhouse_level()
+
+                # TODO - get_fullhouse_level()
                 return 'FULLHOUSE'
 
             if are_same_suit(last_played_sorted):

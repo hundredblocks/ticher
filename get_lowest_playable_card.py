@@ -3,25 +3,20 @@ from state_analyzer import get_type
 
 __author__ = 'EmmanuelAmeisen'
 
-
-
-
-
+# TODO - To Delete
 drag = {'value': 'Dragon',
         'suit': 'Special'}
 
 one = {'value': 'Mahjong',
-        'suit': 'Special'}
+       'suit': 'Special'}
 
 
 dog = {'value': 'Dog',
-        'suit': 'Special'}
+       'suit': 'Special'}
 
 
 phoenix = {'value': 'Phoenix',
-        'suit': 'Special'}
-
-
+           'suit': 'Special'}
 
 ace1 = {'value': 'A',
         'suit': 'Pagoda'}
@@ -45,26 +40,26 @@ six1 = {'value': '6',
         'suit': 'Sword'}
 
 eight1 = {'value': '8',
-        'suit': 'Sword'}
+          'suit': 'Sword'}
 
 four1 = {'value': '4',
-          'suit': 'Sword'}
+         'suit': 'Sword'}
 
 four2 = {'value': '4',
-          'suit': 'Pagoda'}
+         'suit': 'Pagoda'}
 
 five1 = {'value': '5',
-          'suit': 'Sword'}
+         'suit': 'Sword'}
 
 five2 = {'value': '5',
-          'suit': 'Star'}
+         'suit': 'Star'}
 
 hand1 = [ace1, drag, five2,  dog, five1, eight1, two1, six1,  one, three3, four2, phoenix, three2, four1, ace2, three1]
 
 pair2 = [ace1, ace2]
 pair1 = [three1, three2]
 
-#Last played at the end of the array
+# Last played at the end of the array
 combination = [pair1, pair2]
 
 
@@ -72,7 +67,7 @@ def main():
     get_hand_combinations(hand1)
 
 
-def naive_bot(curr_combinations, hand, cards_played):
+def naive_bot(curr_combinations, hand):
     get_lowest_playable_card(curr_combinations, hand)
 
 

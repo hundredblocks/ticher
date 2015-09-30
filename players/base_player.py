@@ -1,5 +1,3 @@
-from abc import abstractmethod
-
 __author__ = 'marc.henri'
 
 

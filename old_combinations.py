@@ -5,7 +5,7 @@ from utils import pretty_print
 
 __author__ = 'EmmanuelAmeisen'
 
-
+# TODO - Refactor/Remove
 def get_hand_combinations(hand):
     hand_sorted = sorted(hand, key=lambda card:  VALUES.get(card.get('value')))
 
@@ -107,7 +107,6 @@ def _find_fullhouses(hand_sorted):
 def _find_steps(hand_sorted):
     pairs = _find_pairs(hand_sorted)
     steps = []
-    #TODO IMPORTANT do all possible steps, with phoenix and suits
     for pair1 in pairs:
         curr_top_pair = pair1
         pair_copy = pair1.copy()
@@ -186,7 +185,7 @@ def _find_straights(hand_sorted):
                                 straight_2 = straight.copy()
                                 straights.append(straight_2)
 
-    straights_sorted = sorted(straights, key=lambda straight: VALUES.get(straight[0].get('value')) + len(straight)*100)
+    straights_sorted = sorted(straights, key=lambda comb: VALUES.get(comb[0].get('value')) + len(comb)*100)
 
     return straights_sorted
 
@@ -198,7 +197,6 @@ def find_straight_bomb():
 
 # two pairs of the same level without a phoenix
 def find_square_bomb(hand_sorted):
-    square_bombs = []
     for card_index in range(len(hand_sorted)-3):
         if hand_sorted[card_index].get('value') == hand_sorted[card_index+1].get('value') == hand_sorted[card_index+2].get('value') == hand_sorted[card_index+3].get('value'):
             pass

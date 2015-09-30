@@ -1,8 +1,8 @@
-import itertools
-from card import Card, Phoenix, Dragon
+from card import Card, Phoenix
 from cards import Cards
-from combinations.steps import Steps
+from game_manager import GameManager
 from hand import Hand
+from players.dumb_ai import DumbAI
 
 __author__ = 'EmmanuelAmeisen'
 
@@ -56,6 +56,6 @@ print(*Hand.find_all_steps(cards), sep='\n')
 # players = [DumbAI(Hand(), 'AI1'), DumbAI(Hand(), 'AI2'), DumbAI(Hand(), 'AI3'), DumbAI(Hand(), 'AI4')]
 
 # gman = GameManager(players)
-# gman = GameManager()
+gman = GameManager()
 #
-# gman.run_game()
+gman.run_game()

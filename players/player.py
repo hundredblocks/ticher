@@ -1,6 +1,5 @@
 from abc import abstractmethod
 from card import Mahjong
-from combination import Combination
 from players.base_player import BasePlayer
 from players.other_player import OtherPlayer
 from trick import Trick
@@ -9,8 +8,9 @@ from action import Action
 
 __author__ = 'EmmanuelAmeisen'
 
-# TODO Look into reinforcment learning ? Reducing space of universe ?
-# TDLearninfg for temporal differences
+# TODO Look into reinforcement learning ? Reducing space of universe ?
+# TDLearning for temporal differences
+
 
 class Player(BasePlayer):
     other_players = None
@@ -101,6 +101,7 @@ class Player(BasePlayer):
     def misplay(self, action, trick):
         raise ValueError('Illegal Move')
 
+    # TODO - Starting ?
     def publish_action(self, action, starting):
         if action.player.name != self.name:
             player = self.get_player(action.player.name)

@@ -62,14 +62,14 @@ class TestCombination(unittest.TestCase):
 
     def test_straight_force_level(self):
         cards = 'Phoenix, 3_Pa, 4_Sw, 5_St, 6_Ja, 7_Sw'
-        combination = Combination(cards_string=cards, type=Straight.name, level=7)
+        combination = Combination(cards_string=cards, combo_type=Straight.name, combo_level=7)
         self.assertEqual(combination.type, 'STRAIGHT')
 
     def test_full_house(self):
         cards = '2_Sw, 2_St, 2_Ja, Phoenix, 3_St'
         combination = Combination(cards_string=cards)
 
-    def test_full_house(self):
+    def test_full_house_2(self):
         cards = 'Phoenix, 2_Pa, 3_Pa, 4_Pa, 5_Pa, 5_Sw, 5_Ja, 5_St'
         combination = Combination(cards_string=cards)
 

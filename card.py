@@ -2,8 +2,6 @@ import hashlib
 
 __author__ = 'EmmanuelAmeisen'
 
-
-
 suits = ['Star',
          'Sword',
          'Pagoda',
@@ -26,7 +24,7 @@ CARD_VALUES = {'2': 2,
                'Phoenix': 0.5,
                'Mahjong': 1,
                'Dog': 0,
-               'unknown': None}
+               'Unknown': None}
 
 
 # Format '4_Pa'
@@ -54,7 +52,7 @@ class Card():
         self.special_card = 'Special' == suit
         self.power = CARD_VALUES[self.name]
         self.point = 0
-        if self.name in ['5','10', 'K']:
+        if self.name in ['5', '10', 'K']:
             self.point = (self.power // 5)*5
         if self.name == 'Dragon':
             self.point = 25
@@ -135,6 +133,7 @@ class Phoenix(Card):
         # TODO - Update when Card is Updated
         super().__init__(name='Phoenix', suit='Special')
 
+
 class Dog(Card):
 
     def __init__(self):
@@ -148,6 +147,7 @@ class Dragon(Card):
         # TODO - Update when Card is Updated
         super().__init__(name='Dragon', suit='Special')
 
+
 class Mahjong(Card):
 
     def __init__(self):
@@ -158,7 +158,7 @@ class Mahjong(Card):
 class Unknown(Card):
 
     def __init__(self):
-        super(Unknown, self).__init__(name='unknown', suit='Special')
+        super(Unknown, self).__init__(name='Unknown', suit='Special')
 
     def _assert_valid(self):
         return True

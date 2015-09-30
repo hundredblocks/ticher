@@ -74,7 +74,7 @@ class GameManager():
                 self.lead_player = player
                 break
 
-        #TODO How to decide lead player
+        # TODO - How to decide lead player
         else:
             self.lead_player = self.players[0]
 
@@ -260,7 +260,3 @@ class GameManager():
 
 class GameManagerException(Exception):
     pass
-
-
-
-

@@ -1,6 +1,6 @@
 from action import Action
 from card import Mahjong
-from combination import Combination
+from combinations.combination import Combination
 from hand import Hand
 from players.player import Player
 
@@ -23,6 +23,7 @@ class DumbAI(Player):
         # TODO - TEMP
         self.call_tichu()
 
+    # TODO - Replace lowest by pulling from combinations (than update combinations)
     # takes in a game state and returns what to play
     def get_combination_to_play(self, trick, wish=None):
         combination_to_play = None
@@ -50,6 +51,7 @@ class DumbAI(Player):
 
         return combination_to_play
 
+    # TODO - Replace lowest by pulling from combinations (than update combinations)
     def get_cards_to_give(self):
 
         lowest_card = self.hand.find_lowest_combination(-1, 'SINGLE')
@@ -64,6 +66,8 @@ class DumbAI(Player):
         # TODO - check guys is not out
         return self.other_players[-1].name
 
+    def bomb(self, trick):
+        pass
     # def bomb(self, trick):
     #     if self.name == 'Player 1':
     #         combination = Combination(cards_string='J_Pa, J_Sw, J_Ja, J_St')

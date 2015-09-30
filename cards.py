@@ -6,7 +6,7 @@ from card import Card, Phoenix, Dragon, Mahjong, Dog
 __author__ = 'EmmanuelAmeisen'
 
 
-#TODO make cards iterable ?
+# TODO - make cards iterable ?
 class Cards():
     size = None
     cards = None
@@ -67,10 +67,11 @@ class Cards():
             in_flag = False
             for card in cards_to_remove.cards:
                 if card == hand_card and card.suit == hand_card.suit:
-                   in_flag = True
+                    in_flag = True
             if not in_flag:
                 temp_cards.append(hand_card)
-        #TODO check for subclasses
+
+        # TODO - check for subclasses
         return Cards(temp_cards)
         # return self.__init__(cards_list=temp_cards)
 

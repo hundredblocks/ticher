@@ -18,8 +18,7 @@ TYPES = {Single.name: Single,
          Straight.name: Straight,
          StraightBomb.name: StraightBomb,
          Fullhouse.name: Fullhouse,
-         Steps.name: Steps
-}
+         Steps.name: Steps}
 
 
 class Combination(Cards):
@@ -27,16 +26,16 @@ class Combination(Cards):
     type = None
     bomb_level = None
 
-    def __init__(self, level: int=None, type: str=None, cards_list: list=None, cards_dict_list: list=None, cards_string: str=None, ):
+    def __init__(self, combo_level: int=None, combo_type: str=None, cards_list: list=None, cards_dict_list: list=None, cards_string: str=None, ):
         super(Combination, self).__init__(cards_list, cards_dict_list, cards_string)
 
-        self.level = level
-        self.type = type
+        self.level = combo_level
+        self.type = combo_type
 
-        if level is not None and type is None:
+        if combo_level is not None and combo_type is None:
             raise ValueError('Both parameters should be passed')
 
-        if type is not None and level is None:
+        if combo_type is not None and combo_level is None:
             raise ValueError('Both parameters should be passed')
 
         if self.level is None and self.type is None:
@@ -112,9 +111,9 @@ class Combination(Cards):
 
     def __eq__(self, other):
         return self.level == other.level \
-                   and self.type == other.type \
-                   and self.bomb_level == other.bomb_level \
-                   and super(Combination, self).__hash__() == super(Combination, other).__hash__()
+            and self.type == other.type \
+            and self.bomb_level == other.bomb_level \
+            and super(Combination, self).__hash__() == super(Combination, other).__hash__()
 
     def __ne__(self, other):
         return self.level != other.level and self.type != other.type

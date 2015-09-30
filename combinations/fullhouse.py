@@ -46,4 +46,3 @@ class Fullhouse(CombinationAnalyzer):
             level.sort(reverse=True)
 
         return level
-

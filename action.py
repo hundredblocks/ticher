@@ -1,5 +1,6 @@
 from card import Mahjong
-from combination import Combination
+# from combination import Combination
+from combinations.combination import Combination
 
 __author__ = 'EmmanuelAmeisen'
 

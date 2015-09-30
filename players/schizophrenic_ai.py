@@ -26,8 +26,6 @@ class SchizophrenicAI(Player):
     def __init__(self, name, hand):
         super(SchizophrenicAI, self).__init__(name=name, hand=hand)
         # TODO - Tichu and wish (both give and fulfil)
-
-
         # self.call_tichu()
 
     # Gets what mode the AI is currently in
@@ -87,10 +85,9 @@ class SchizophrenicAI(Player):
                 power_card_counter += 1
         return power_card_counter >= power_limit
 
-
     # TODO Change the strategy here
     def combination_to_go_out(self, trick, wish):
-        # For now, jsut plays like the dumb AI
+        # For now, just plays like the dumb AI
         return self.get_lowest_combination(trick, wish)
 
     def combination_to_get_points(self, trick, wish):
@@ -142,7 +139,7 @@ class SchizophrenicAI(Player):
         pass
 
     def combination_to_kill_tichu(self, trick, wish):
-        # How to kill a Tichuer, you prevent him from playing his non winners by going high instantly
+        # How to kill a Tichu, you prevent him from playing his non winners by going high instantly
         # 1/If he starts the trick or plays after you, you go super high
         # 2/ If he passed, you unload your cards
         # 3/ If your partner has the lead you assume he played the same logic, so you don't play on top of him
@@ -172,7 +169,7 @@ class SchizophrenicAI(Player):
                 return None
 
             else:
-                return self.get_highest_combination()
+                return self.get_highest_combination(trick, wish)
 
         else:
             for combination_type in self.lead_preference:

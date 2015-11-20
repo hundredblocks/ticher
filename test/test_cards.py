@@ -1,7 +1,7 @@
 import unittest
 from card import Card, Phoenix
 from cards import Cards
-from combination import Combination
+from combinations.combination import Combination
 
 __author__ = 'EmmanuelAmeisen'
 

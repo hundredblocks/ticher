@@ -1,5 +1,5 @@
 import unittest
-from card import Dragon
+from card import Dragon, Dog
 from cards import Cards
 from hand import Hand
 
@@ -234,6 +234,23 @@ class TestHand(unittest.TestCase):
         print('DRAGON')
         combination = hand.find_lowest_combination(Dragon().power, 'SINGLE')
         print('DRAGON', combination)
+        self.assertIsNotNone(combination)
+
+    def test_play_dragon(self):
+        cards = 'Dragon'
+        hand = Hand(cards_string=cards)
+
+        print('DRAGON')
+        combination = hand.find_lowest_combination(Dog().power, 'SINGLE')
+        print('DRAGON', combination)
+        self.assertIsNotNone(combination)
+
+    def test_play_dog(self):
+        cards = 'Dog'
+        hand = Hand(cards_string=cards)
+
+        combination = hand.find_lowest_combination(-2, 'SINGLE')
+        print('DOG', combination)
         self.assertIsNotNone(combination)
 
 if __name__ == '__main__':

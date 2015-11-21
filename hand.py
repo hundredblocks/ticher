@@ -53,39 +53,6 @@ class Hand(Cards):
             potential_combinations.sort()
             return potential_combinations[0]
 
-    # TODO Flag for multiples called favor_no_phoenix, true by default, if false then will just output lowest multiple
-    def find_lowest_combination_to_delete(self, level_to_beat, combination_type, length=None):
-        # call find_pairs
-
-        multiples = ['SINGLE', 'PAIR', 'TRIO', 'SQUAREBOMB']
-        if combination_type in multiples:
-            cards_combination = self.find_multiple(self, level_to_beat, multiples.index(combination_type) + 1)
-
-        # TODO Straight and steps length
-        elif combination_type == 'STRAIGHT':
-            cards_combination = self.find_straight(self, level_to_beat, length)
-
-        elif combination_type == 'STRAIGHTBOMB':
-            cards_combination = self.find_straight(self, level_to_beat, length, bomb=True)
-
-        elif combination_type == 'FULLHOUSE':
-            trio = self.find_multiple(self, level_to_beat, 3)
-            if trio is None:
-                return
-            duo = self.find_multiple(self - trio, level_to_beat, 2)
-            if duo is None:
-                return
-            cards_combination = duo + trio
-
-        elif combination_type == 'STEPS':
-            cards_combination = self.find_steps(self, level_to_beat, length)
-
-        else:
-            raise ValueError()
-
-        if cards_combination:
-            return Combination(cards_list=cards_combination.cards)
-
     @staticmethod
     def find_multiple(cards: Cards, level_to_beat: int, cards_to_find: int):
         """
@@ -177,80 +144,6 @@ class Hand(Cards):
                 return rest + Phoenix()
 
     @staticmethod
-    def find_steps_old(cards, level_to_beat, steps_length=None):
-        if steps_length is None:
-            steps_length = 2
-
-        starting_pairs_level = level_to_beat - steps_length + 1
-
-        first_pair = Hand.find_multiple(cards, starting_pairs_level, 2)
-        # If no pairs
-        if not first_pair:
-            return
-
-        starting_step_pair = Combination(cards_list=first_pair.cards)
-
-        while starting_step_pair:
-            start_pair_level = starting_step_pair.level
-            curr_steps_combination = starting_step_pair
-
-            # for i in range(1, length):
-            # while number_of_steps < steps_length:
-            for number_of_steps in range(1, steps_length + 1):
-                target_level = start_pair_level + number_of_steps - 1
-                # TODO - Potential issue if the phoenix is need in the middle of it or at the beginning
-                next_pair = Hand.find_multiple(cards - starting_step_pair, target_level, 2)
-                if next_pair:
-
-                    next_pair_combi = Combination(cards_list=next_pair.cards)
-
-                    if next_pair_combi.level == target_level + 1:
-                        curr_steps_combination = curr_steps_combination + next_pair
-                        number_of_steps += 1
-
-                        if number_of_steps == steps_length:
-                            return Cards(cards_list=curr_steps_combination.cards)
-
-                    else:
-                        # Next pairs level is too high - Use this pair as a new start
-                        starting_step_pair = next_pair_combi
-                        break
-
-                # if there is no next pair, the hand does not contain any pairs
-                # No steps could be done, return None
-                else:
-                    return
-
-    @staticmethod
-    def find_steps(cards, level_to_beat, steps_length=None):
-        if steps_length is None:
-            steps_length = 2
-
-        first_straight = Hand.find_straight(cards, level_to_beat, steps_length)
-        # If no pairs
-        if not first_straight:
-            return
-        if first_straight.phoenix_flag:
-            return Hand.find_steps(cards, level_to_beat+1, steps_length)
-
-        while first_straight:
-            level_to_beat = max(first_straight.cards).power - 1
-            second_straight = Hand.find_straight(cards-first_straight, level_to_beat, steps_length)
-
-            if not second_straight:
-                return
-
-            # THe level of the second straight can not be lower than the first one
-            if max(first_straight.cards).power == max(second_straight.cards).power:
-                return first_straight + second_straight
-
-            else:
-                if second_straight.phoenix_flag and (max(first_straight.cards)).power - 1 == (max(second_straight.cards)).power:
-                    return first_straight + second_straight
-                else:
-                    first_straight = second_straight
-
-    @staticmethod
     def find_all_steps(cards: Cards):
         buckets = Cards.bucketize_hands((cards - Phoenix()).cards)
 
@@ -295,14 +188,14 @@ class Hand(Cards):
 
     @staticmethod
     def find_all_multiples(cards: Cards, multiple: int):
-        cards = cards - Dog() - Dragon()
-        buckets = Cards.bucketize_hands(cards.cards)
+        # TODO - Temp ?
         multiples = []
         if multiple == 1:
             for card in cards:
                 multiples.append(Combination(cards_list=[card]))
             return multiples
-
+        cards = cards - Dragon() - Dog()
+        buckets = Cards.bucketize_hands(cards.cards)
         for level in range(Mahjong().power+1, Dragon().power):
             cards_this_level = buckets[level]
             if (Phoenix().power in buckets.keys()) and (multiple != 4):
@@ -420,6 +313,7 @@ class Hand(Cards):
                         if new_combo not in combinations_list:
                             combinations_list.append(new_combo)
 
+    # TODO take cards in played cards, and iterate through combinations to remove them
     def __sub__(self, other):
         cards = super().__sub__(other)
         return Hand(cards_list=cards.cards)

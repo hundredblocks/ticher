@@ -19,13 +19,16 @@ class GameManager():
 
     wish_for_power = None
 
-    def __init__(self, players=None):
+    def __init__(self, player_classes=None):
         self.game_over = False
         cards = Deck()
         divided_cards = cards.split_equally(4)
 
-        if players is None:
+        if player_classes is None:
             players = [DumbAI(hand=Hand(cards_list=hand), name='Player %s' % index) for index, hand in enumerate(divided_cards)]
+        else:
+            players = [player_classes[index](hand=Hand(cards_list=hand), name='Player %s' % index) for index, hand in enumerate(divided_cards)]
+
         if all(player.hand is None for player in players):
             for idx, player in enumerate(players):
                 player.hand = divided_cards[idx]
@@ -81,7 +84,7 @@ class GameManager():
         while not self.is_game_over():
             print('',
                   '### new trick with players %s' %
-                  (', '.join(['%s (%spts)' % (player.name, player.points) for player in self.get_player_still_game()])),
+                  ('### \n, '.join(['%s (%spts) %s' % (player.name, player.points, player.hand) for player in self.get_player_still_game()])),
                   '### leading player is %s' % self.lead_player,
                   '### trick - %s' % self.present_trick,
                   '',

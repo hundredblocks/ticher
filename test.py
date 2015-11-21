@@ -3,6 +3,7 @@ from cards import Cards
 from game_manager import GameManager
 from hand import Hand
 from players.dumb_ai import DumbAI
+from players.human_player import HumanPlayer
 
 __author__ = 'EmmanuelAmeisen'
 
@@ -44,18 +45,13 @@ cards_list = [
     # Dragon(),
 
 ]
-test = [[[1, 2], [1, 3]], [5, 6]]
 
-cards = '5_Sw, 5_Pa, 6_Sw, Phoenix, 7_Sw, 7_Pa, 8_Sw, 8_Pa'
-# cards = '5_Sw, 5_Pa, 6_Sw, 6_St, 7_Sw, 7_Pa, 8_Sw, 8_Pa'
-cards = Cards(cards_string=cards)
+# players = [DumbAI, DumbAI, DumbAI, DumbAI]
+players = [HumanPlayer, DumbAI, DumbAI, DumbAI]
 
-print(*Hand.find_all_steps(cards), sep='\n')
-
-# players = [DumbAI(hand1, 'AI1'), DumbAI(hand2, 'AI2'), DumbAI(hand3, 'AI3'), DumbAI(hand4, 'AI4')]
 # players = [DumbAI(Hand(), 'AI1'), DumbAI(Hand(), 'AI2'), DumbAI(Hand(), 'AI3'), DumbAI(Hand(), 'AI4')]
 
 # gman = GameManager(players)
-gman = GameManager()
+gman = GameManager(players)
 #
 gman.run_game()

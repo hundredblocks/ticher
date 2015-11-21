@@ -38,13 +38,13 @@ class DumbAI(Player):
 
             last_combination = last_play.combination
 
-            combination_to_play = self.hand.find_lowest_combination(last_combination.level, last_combination.type)
+            combination_to_play = self.hand.find_lowest_combination(last_combination.level, last_combination.type, length=last_combination.size)
 
         # If we are leading
         else:
             for combination_type in self.lead_preference:
                 # -1 otherwise the dog is never played
-                combination_to_play = self.hand.find_lowest_combination(-1, combination_type)
+                combination_to_play = self.hand.find_lowest_combination(-2, combination_type, length=5)
                 # as soon as a combination is found, play it
                 if combination_to_play:
                     break

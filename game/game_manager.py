@@ -1,17 +1,16 @@
 import itertools
 
-from card import Mahjong, Dragon, Dog
-
-from cards import Deck
-from hand import Hand
+from cards.cards import Deck
+from cards.card import Mahjong, Dragon, Dog
+from cards.hand import Hand
+from game.trick import Trick
 from players.dumb_ai import DumbAI
-from trick import Trick
 
 
 __author__ = 'EmmanuelAmeisen'
 
 
-class GameManager():
+class GameManager:
     players = None
     lead_player = None
     present_trick = None
@@ -31,8 +30,12 @@ class GameManager():
                 player.hand = divided_cards[idx]
 
         self.players = players
+        self.results = {
+            'finished': False,
+        }
         for player in self.players:
             player.create_players([p.name for p in self.players])
+            self.results[player.name] = 0
 
         print(*['%s - %s' % (player.name, player.hand) for player in self.players], sep='\n')
 
@@ -76,7 +79,8 @@ class GameManager():
 
         #TODO How to decide lead player
         else:
-            self.lead_player = self.players[0]
+            raise RuntimeError("No Mahjong dealt")
+            # self.lead_player = self.players[0]
 
         while not self.is_game_over():
             print('',
@@ -122,6 +126,13 @@ class GameManager():
                 active_player = next(player_iterator)
 
             self.end_of_trick()
+
+        self.tally_points()
+
+    def tally_points(self):
+        print("Final tally")
+        for player in self.players:
+            print("%s has %s points" % (player.name, player.points))
 
     def publish_action_to_players(self, action, starting=False):
         for player in self.players:
@@ -219,7 +230,7 @@ class GameManager():
             last_play = self.present_trick.get_last_play()
 
             if last_play:
-                if last_play.combination >= action.combination:
+                if last_play.combination > action.combination:
                     raise GameManagerException('Combination should be greater than last played')
 
         if self.wish_for_power is not None:
@@ -260,7 +271,3 @@ class GameManager():
 
 class GameManagerException(Exception):
     pass
-
-
-
-

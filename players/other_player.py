@@ -1,5 +1,5 @@
-from card import Card
-from cards import Cards, Deck
+from cards.cards import Cards, Deck
+from cards.card import Card
 from players.base_player import BasePlayer
 
 __author__ = 'marc.henri'

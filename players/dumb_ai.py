@@ -1,7 +1,3 @@
-from action import Action
-from card import Mahjong
-from combination import Combination
-from hand import Hand
 from players.player import Player
 
 __author__ = 'marc.henri'
@@ -21,7 +17,7 @@ class DumbAI(Player):
     def __init__(self, name, hand):
         super(DumbAI, self).__init__(name=name, hand=hand)
         # TODO - TEMP
-        self.call_tichu()
+        # self.call_tichu()
 
     # takes in a game state and returns what to play
     def get_combination_to_play(self, trick, wish=None):

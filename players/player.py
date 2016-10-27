@@ -1,11 +1,11 @@
 from abc import abstractmethod
-from card import Mahjong
-from combination import Combination
+
+from cards.card import Mahjong
+from cards.combination import Combination
+from game.action import Action
+from game.trick import Trick
 from players.base_player import BasePlayer
 from players.other_player import OtherPlayer
-from trick import Trick
-from action import Action
-
 
 __author__ = 'EmmanuelAmeisen'
 
@@ -47,6 +47,7 @@ class Player(BasePlayer):
                 action_params['wish'] = self.wish
 
             self.hand -= combination_to_play
+            # self.hand.remove_played(combination_to_play)
             self.hand_size -= combination_to_play.size
 
             return Action.play(player=self, combination=combination_to_play, **action_params)
@@ -100,7 +101,7 @@ class Player(BasePlayer):
 
     # TODO - logic for misplayed
     def misplay(self, action, trick):
-        raise ValueError('Illegal Move')
+        raise ValueError('Illegal Move %s on trick %s' % (action, trick))
 
     def publish_action(self, action, starting):
         if action.player.name != self.name:

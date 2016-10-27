@@ -1,6 +1,7 @@
-from collections import defaultdict
 import random
-from card import Card, Phoenix, Dragon, Mahjong, Dog
+from collections import defaultdict
+
+from cards.card import Card, Phoenix, Dragon, Mahjong, Dog
 
 __author__ = 'EmmanuelAmeisen'
 

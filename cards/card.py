@@ -3,7 +3,6 @@ import hashlib
 __author__ = 'EmmanuelAmeisen'
 
 
-
 suits = ['Star',
          'Sword',
          'Pagoda',
@@ -54,7 +53,7 @@ class Card():
         self.special_card = 'Special' == suit
         self.power = CARD_VALUES[self.name]
         self.point = 0
-        if self.name in ['5','10', 'K']:
+        if self.name in ['5', '10', 'K']:
             self.point = (self.power // 5)*5
         if self.name == 'Dragon':
             self.point = 25

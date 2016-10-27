@@ -1,5 +1,7 @@
-from card import Card, Phoenix, Dog, Dragon, Mahjong
-from cards import Cards
+import hashlib
+
+from cards.cards import Cards
+from cards.card import Phoenix, Dog, Dragon, Mahjong
 
 __author__ = 'EmmanuelAmeisen'
 
@@ -23,12 +25,14 @@ class Combination(Cards):
 
     def __init__(self, cards_list: list=None, cards_dict_list: list=None, cards_string: str=None, phoenix_power: int=None):
         super(Combination, self).__init__(cards_list, cards_dict_list, cards_string)
+        self.phoenix_power = phoenix_power
+
         self.get_type()
         self.get_level()
         self._assert_valid()
 
     def get_type(self):
-        phoenixless_combination = [card for card in self.cards if card != Phoenix()]
+        phoenixless_combination = [card for card in self.cards if card.name != Phoenix().name]
         combination = [card for card in self.cards]
         phoenixless_combination_size = len(phoenixless_combination)
 
@@ -42,8 +46,8 @@ class Combination(Cards):
         if Dragon() in phoenixless_combination and len(combination) > 1:
             raise ValueError('Dragon is played alone')
 
-        if Mahjong() in phoenixless_combination and len(combination) == 2 and self.phoenix_flag:
-            raise ValueError('No pairs with Mahjong')
+        if Mahjong() in phoenixless_combination and 5 > len(combination) > 1 and self.phoenix_flag:
+            raise ValueError('Only straights with Mahjong')
 
         distinct_values = list(set([card.power for card in phoenixless_combination]))
         number_of_values_except_ph = len(distinct_values)
@@ -91,7 +95,7 @@ class Combination(Cards):
                     # Not assigning level because of no interest
                     return
                 else:
-                    raise ValueError('Incoherent Straight')
+                    raise ValueError('Incoherent Straight: ', self.cards)
             if not self.phoenix_flag:
                 if value_span != phoenixless_combination_size:
                     raise ValueError('Incoherent Straight')
@@ -125,7 +129,10 @@ class Combination(Cards):
         raise ValueError('Unknown Combination %s' % self)
 
     def get_level(self):
-        self.level = max([card.power for card in self.cards])
+        powers = [card.power for card in self.cards]
+        # if self.phoenix_flag:
+        #     powers.append(self.phoenix_power)
+        self.level = max(powers)
 
     def _assert_valid(self):
         assert self.type in TYPES
@@ -135,7 +142,15 @@ class Combination(Cards):
                     'type': self.type,
                     'size': self.size,
                     'cards': self.cards,
-                    'phoenix': self.phoenix_flag})
+                    'phoenix': self.phoenix_flag,
+                    'phoenix_power': self.phoenix_power})
+
+    def __hash__(self):
+        cmb_hash = hashlib.md5()
+        cmb_hash.update(self.__repr__().encode())
+        cmb_hash = cmb_hash.hexdigest()
+        cmb_hash = int(cmb_hash, 16)
+        return cmb_hash
 
     def __ge__(self, other):
         if self.type == other.type:

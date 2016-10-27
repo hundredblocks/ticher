@@ -1,6 +1,7 @@
 import unittest
-from card import Card, Phoenix
-from combination import Combination
+
+from cards.card import Card, Phoenix
+from cards.combination import Combination
 
 __author__ = 'EmmanuelAmeisen'
 
@@ -49,7 +50,6 @@ class TestCombination(unittest.TestCase):
         cards = ' 2_Pa, 2_Sw, 2_Ja, 5_Pa, 5_Sw'
         combination = Combination(cards_string=cards)
         self.assertEqual(combination.type, 'FULLHOUSE')
-
 
     def test_straight_with_phoenix(self):
         cards = '2_Sw, 3_Pa, 5_Pa, Phoenix, 6_Pa'
